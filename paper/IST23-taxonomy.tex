@@ -1,0 +1,129 @@
+%\documentclass[a4paper,fleqn]{cas-dc}
+%\documentclass[preprint,12pt]{elsarticle}
+\documentclass[final,5p,times,twocolumn]{elsarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs} % For formal tables
+%\usepackage{url}
+\usepackage{lscape}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{soul}
+%\usepackage[nocompress]{cite}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{balance}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{indentfirst}
+\usepackage{pgfplots}
+\usepackage{enumitem}
+\usepackage{algorithmic}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{eurosym} %\EUR{arg1}
+\usepackage[numbers]{natbib}
+
+\newcommand{\todo}[1]{\hl{\textsf{TODO: #1}}}
+
+\newcommand{\newtext}[1]{\textcolor{blue}{#1}}
+%\newcommand{\newtext}[1]{{#1}}
+
+\newcommand{\point}[1]{\noindent $\Rightarrow$ \textbf{#1}}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+
+\title{\newtext{A Taxonomy for Mining and Classifying Privacy Requirements in Issue Reports}}
+
+%\author{Pattaraporn Sangaroonsilp, Hoa Khanh Dam, Morakot Choetkiertikul, Chaiyong Ragkhitwetsagul, \\Aditya Ghose} 
+
+\author[1]{Pattaraporn Sangaroonsilp}
+\ead{ps642@uowmail.edu.au}
+%% \ead[url]{home page}
+
+\author[1]{Hoa Khanh Dam}
+\ead{hoa@uow.edu.au}
+
+\author[2]{Morakot Choetkiertikul}
+\ead{morakot.cho@mahidol.ac.th}
+
+\author[2]{Chaiyong Ragkhitwetsagul}
+\ead{chaiyong.rag@mahidol.ac.th}
+
+\author[1]{Aditya Ghose}
+\ead{aditya@uow.edu.au}
+
+\begin{comment}
+\affiliation[1]{organization={School of Computing and Information Technology, Faculty of Engineering and Information Sciences, University of Wollongong},
+	addressline={Northfields Avenue},
+	city={Wollongong},
+	postcode={2500},
+	state={NSW},
+	country={Australia}}
+
+\affiliation[2]{organization={Faculty of Information and Communication Technology, Mahidol University},
+	addressline={Phutthamonthon Sai 4 Rd},
+	city={Salaya},
+	postcode={73170},
+	state={Nakhon Pathom},
+	country={Thailand}}	
+\end{comment}
+
+
+\begin{abstract}
+	
+\textbf{Context:} Digital and physical trails of user activities are collected over the use of software applications and systems. As software becomes ubiquitous, protecting user privacy has become challenging. With the increase of user privacy awareness and advent of privacy regulations and policies, there is an emerging need to implement software systems that enhance the protection of personal data processing. However, existing data protection and privacy regulations provide key principles in high-level, making it difficult for software engineers to design and implement privacy-aware systems. \\
+\textbf{Objective:} In this paper, we develop a taxonomy that provides a comprehensive set of privacy requirements based on four well-established personal data protection regulations and privacy frameworks, the General Data Protection Regulation (GDPR), ISO/IEC 29100, Thailand Personal Data Protection Act (Thailand PDPA) and Asia-Pacific Economic Cooperation (APEC) privacy framework. 
+\textbf{Methods:} These requirements are extracted, refined and classified (using the goal-based requirements analysis method) into a level that can be used to map with issue reports. We have also performed a study on how two large open-source software projects (Google Chrome and Moodle) address the privacy requirements in our taxonomy through mining their issue reports. \\
+\textbf{Results:} The paper discusses how the collected issues were classified, and presents the findings and insights generated from our study. \\
+\textbf{Conclusion:} Mining and classifying privacy requirements in issue reports can help organisations be aware of their state of compliance by identifying privacy requirements that have not been addressed in their software projects. The taxonomy can also trace back to regulations, standards and frameworks that the software projects have not complied with based on the identified privacy requirements.
+
+%Digital and physical footprints are a trail of user activities collected over the use of software applications and systems. As software becomes ubiquitous, protecting user privacy has become challenging. With the increasing of user privacy awareness and advent of privacy regulations and policies, there is an emerging need to implement software systems that enhance the protection of personal data processing. However, existing privacy regulations and policies only provide high-level principles which are difficult for software engineers to design and implement privacy-aware systems. In this paper, we develop a taxonomy that provides a comprehensive set of privacy requirements based on two well-established and widely-adopted privacy regulations and frameworks, the General Data Protection Regulation (GDPR) and the ISO/IEC 29100. These requirements are extracted, classified and refined into a level that can be used to map with issue reports. We have also performed a study on how two large open-source software projects (Google Chrome and Moodle) address the privacy requirements in our taxonomy through mining their issue reports. The paper discusses how the collected issues were classified, and presents the findings and insights generated from our study.
+
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{keyword}
+Privacy Requirements Engineering, Mining Software Repositories, Software Issues, Privacy Compliance, Data Protection Regulations and Privacy Frameworks, Privacy Taxonomy, GDPR, ISO/IEC 29100, Thailand PDPA, APEC.
+\end{keyword}
+
+% make the title area
+\maketitle
+
+\input{sections/1-intro}
+
+\input{sections/2-related-work}
+
+\input{sections/3-theoretical-background}
+
+\input{sections/4-taxonomy-development}
+
+\input{sections/5-taxonomy}
+
+\input{sections/6-mining}
+
+\input{sections/7-analysis}
+
+\input{sections/8-threats} 
+
+\input{sections/9-conclusions}
+
+\balance
+
+\bibliographystyle{elsarticle-num-names}
+\bibliography{privacy-requirements,ICSE2020_kookai_ref}
+
+\end{document}

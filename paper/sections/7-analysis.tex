@@ -1,0 +1,153 @@
+\section{Analysis and discussions} \label{sec:results}
+
+The study presented in the previous section generates not only a valuable dataset but also important insights into how privacy requirements have been addressed in Chrome and Moodle issue reports. In this section, we discuss and analyse some of the key findings and implications.
+
+%This study not only provides us with a labelled dataset (which can be used for future research in this area) but also a number of insights in the two projects. We discuss here some important findings:
+
+\subsection{The top and least concerned privacy requirements}
+%We first present how frequent the issues are classified into the privacy requirements in each privacy goal in both projects in the percentage of occurrences by requirements column (see Table \ref{tab:table2}).
+
+Table \ref{tab:req-occurrences} presents the coverage of each category in Chrome and Moodle issue reports. \newtext{We found 1,157 and 1,275 privacy requirements in Chrome and Moodle issue reports respectively (2,432 privacy requirements in total).} In both projects, the majority of the issues address the user participation requirements (Category 1). Most issue reports in Moodle address more than one privacy requirement across different privacy goal categories. This results in Moodle having higher coverage (in terms of the occurrences) than Chrome. \newtext{It is worth noting that requirements R1 ALLOW the data subjects to access and review their personal data, R26 PROVIDE the data subjects the information relating to the policies, procedures, practices and logic of the processing of personal data, R30 PROVIDE the data subjects the information relating to the processing of personal data with standardised icons, R44 ALLOW the data subjects to erase personal data and R60 IMPLEMENT appropriate technical and organisational measures to protect personal data were in the top 10 in both projects.}
+
+\begin{table}[ht]
+	\centering
+	\caption{\newtext{The number of privacy requirements found in Chrome and Moodle issue reports categorised by category.}}
+	\label{tab:req-occurrences}
+	\resizebox{3.5in}{!}{%
+		\begin{tabular}{@{}l c c@{}}
+			\toprule
+			\multicolumn{1}{c}{\multirow{2}{*}{\textbf{Category}}} & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}No. of mined privacy requirements \\ in each project by category\end{tabular}}} \\ \cmidrule(l){2-3}
+			\multicolumn{1}{c}{}                                   & \multicolumn{1}{c}{\textbf{Google Chrome}}      & \multicolumn{1}{c}{\textbf{Moodle}}      \\ \midrule
+			1) User participation							&   321                                              &   328                                       \\
+			2) Notice                                              &   272                                              &   229                                       \\
+			3) User desirability							&    241                                             &    194                                      \\
+			4) Data processing 							&     117                                            &  55                                        \\
+			5) Breach 											&    0                                             &     0                                     \\
+			6) Complaint/Request 						&   1                                              &   9                                       \\
+			7) Security 										&    160                                             &   214                                       \\ \bottomrule
+		\end{tabular}%
+	}
+\end{table}
+
+\begin{comment}
+\begin{table}[ht]
+	\centering
+	\caption{The number of privacy requirements in each category and the percentage of occurrences in Chrome and Moodle issue reports}
+	\label{tab:req-occurrences}
+	\resizebox{3.25in}{!}{%
+		\begin{tabular}{p{3cm} c c c}
+			\toprule
+			\multicolumn{1}{c}{\multirow{2}{*}{\textbf{Privacy goals}}} & \multicolumn{1}{c}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{No. of privacy }\\\textbf{requirements~ }\end{tabular}}} & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}\textbf{Percentage of}\\\textbf{occurrences (\%) }\end{tabular}} \\
+			\cline{3-4}
+			\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}\textbf{Google }\\\textbf{Chrome}\end{tabular}} & \multicolumn{1}{c}{\textbf{Moodle}} \\
+			\midrule
+			User participation & 9 & 35.83 & 68.62\\
+			Notice & 32 & 30.36 & 47.91\\
+			User desirability & 10 & 28.01 & 40.59\\
+			Data processing & 16 & 13.06 & 11.51\\
+			Breach & 6 & 0.00 & 0.00\\
+			Complaint/Request & 5 & 0.11 & 1.88\\
+			Security & 13 & 17.86 & 44.77\\
+			\hline
+			\multicolumn{4}{p{8.5cm}}{\footnotesize *Since one issue can relate to multiple privacy requirements, the sum of percentage exceeds 100\%} \setlength\lineskip{0pt}
+		\end{tabular}%
+	}
+\end{table}
+\end{comment}
+
+The top three most concerned requirements in Chrome are R30, R44 and R60 (see Figure \ref{fig:top10} and \newtext{Table \ref{tab:top10-detail}}). Note that these requirements belong to three different privacy goal categories (refer to Table \ref{tab:sample-requirements} for details of the privacy goals and requirements we discussed here). The top three requirements covered in Moodle issues are R44, R1 and R35 \newtext{OBTAIN the opt-in consent for the processing of personal data for specific purposes}. %It is also worth noting that requirements R1, R26 \newtext{PROVIDE the data subjects the information relating to the policies, procedures, practices and logic of the processing of personal data}, R30, R44 and R60 are in the top 10 in both projects.
+
+Requirement R44 was in the top three most concerned requirements in both projects, suggesting that allowing the data subjects to erase their personal data is a highly important privacy requirement for both Chrome and Moodle. Requirements R30 and R36 were also addressed in many privacy-related issues in Chrome. This suggests that providing information with standardised, visible and meaningful icons which inform the intended processing of personal data for users is an important privacy concern in Chrome (R30). In addition, many issues in Chrome also focus on addressing the privacy requirement that users are presented with all available options related to the processing of personal data (R36).
+
+Apart from requirement R44, the other two requirements most frequently covered in Moodle issue reports are R1 and R35 (note that they are different from those in Chrome). Approximately 39\% issues in Moodle are related to requirement R1. This implies that Moodle has a strong emphasis on allowing users to access their personal data such as grade records, course participation and course enrolment records. This function is not only important for Moodle, but also in Chrome (R1 is also in the top 10 for Chrome). User consent is a major concern in privacy protection. We found that a large number of issue reports in Moodle explicitly requires the system to obtain consent from users for processing personal data based on specific purposes (R35).
+
+%The common requirement R26 emphasises on the importance to provide information related the processing of personal data to users in terms of documentation. Both systems are also required to implement appropriate mechanisms to protect personal data. All the requirements here potentially show a set of key functions that the stakeholders of software systems should consider when handling personal data.
+
+It is interesting to note that none of the requirements in the breach category were found in both Chrome and Moodle as they were not directly observed from issue reports or recorded in the ITS. These goals can be evidenced through high-level organisational activities such as Data Protection Impact Assessment, Legitimate Interest Assessment and breach notifications. Our future work will investigate this further.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\linewidth]{Figures/"Top10-occ-by-type"}
+	\caption{Top 10 privacy requirements occurrences in Google Chrome and Moodle datasets categorised by issue types}
+	\label{fig:top10}
+\end{figure}
+
+\begin{table}[ht]
+	\centering
+	\caption{\newtext{A summary of top 10 concerned privacy requirements in Google Chrome and Moodle datasets.}}
+	\label{tab:top10-detail}
+	\resizebox{3.5in}{!}{%
+	\begin{tabular}{@{}ccllc@{}}
+		\toprule
+		\textbf{Project}                                      & \textbf{\begin{tabular}[c]{@{}c@{}}Req-\\ uirement\end{tabular}} & \multicolumn{1}{c}{\textbf{Category}} & \multicolumn{1}{c}{\textbf{Subcategory}}                               & \textbf{\begin{tabular}[c]{@{}c@{}}Frequency\\ (Occurrences)\end{tabular}} \\ \midrule
+		\multirow{10}{*}{\textbf{Chrome}}                     & R30                  & 2) Notice                             & 2.1) Data subjects                                                     & 209                                                                        \\
+		& R44                  & 1) User participation                 & -                                                                      & 204                                                                        \\
+		& R60                  & 7) Security                           & -                                                                      & 135                                                                        \\
+		& R8                   & 3) User desirability                  & \begin{tabular}[c]{@{}l@{}}3.1) Consent\\ 3.3) Preference\end{tabular} & 144                                                                       \\
+		& R36                  & 3) User desirability                  & 3.2) Choice                                                            & 119                                                                        \\
+		& R45                  & 1) User participation                 & -                                                                      & 73                                                                         \\
+		& R53                  & 4) Data processing                    & 4.4) Erasure                                                           & 70                                                                         \\
+		& R1                   & 1) User participation                 & -                                                                      & 49                                                                         \\
+		& R26                  & 2) Notice                             & 2.1) Data subjects                                                     & 29                                                                         \\
+		& R41                  & 4) Data processing                    & 4.1) Collection                                                        & 17                                                                         \\ \midrule
+		\multicolumn{1}{l}{\multirow{10}{*}{\textbf{Moodle}}} & R44                  & 1) User participation                 & -                                                                      & 194                                                                        \\
+		\multicolumn{1}{l}{}                                  & R1                   & 1) User participation                 & -                                                                      & 186                                                                        \\
+		\multicolumn{1}{l}{}                                  & R35                  & 3) User desirability                  & 3.1) Consent                                                           & 161                                                                        \\
+		\multicolumn{1}{l}{}                                  & R56                  & 7) Security                           &  -                                                                      & 150                                                                        \\
+		\multicolumn{1}{l}{}                                  & R38                  & 2) Notice                             & 2.1) Data subjects                                                     & 112                                                                        \\
+		\multicolumn{1}{l}{}                                  & R42                  & 2) Notice                             & 2.1) Data subjects                                                     & 109                                                                        \\
+		\multicolumn{1}{l}{}                                  & R34                  & 1) User participation                 & -                                                                      & 57                                                                         \\
+		\multicolumn{1}{l}{}                                  & R26                  & 2) Notice                             & 2.1) Data subjects                                                     & 43                                                                         \\
+		\multicolumn{1}{l}{}                                  & R30                  & 2) Notice                             & 2.1) Data subjects                                                     & 42                                                                         \\
+		\multicolumn{1}{l}{}                                  & R60                  & 7) Security                           & -                                                                      & 40                                                                         \\ \bottomrule
+	\end{tabular}%
+}
+\end{table}
+
+\begin{comment}
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{Figures/"Top10-occ"}
+		\caption{Top 10 privacy requirements occurrences in Google Chrome and Moodle datasets}
+		\label{fig:top10}
+	\end{figure}
+\end{comment}
+
+%It is interesting to note that all the seven requirements in the accountability goal category were not covered in both projects. These requirements are relevant to privacy breach notification and compliance management. They mainly focus on the tasks that are under management responsibility of the controllers (e.g. R66 and R67). This suggests three possible scenarios: (i) the existing systems did not provide any functions regarding these requirements; (ii) these circumstances might not have been recorded in the issue trackers; or (iii) the privacy requirements have already been met at the implementation level. Our future work will investigate this further.
+
+We have performed further analysis on the issue reports that were classified into the top concerned requirements in Chrome and Moodle datasets. We analyse four factors focusing on how the contributors treat those issue reports: issue types, the time took to resolve an issue, the number of contributors involved and the number of comments associated with the issue.
+
+In Chrome dataset, issue reports have five different types: bug, bug-regression, bug-security, feature and task. Bug type reports malfunctioning functionalities in current version of the system. Bug-regression focuses on the functions that used to work correctly in the previous versions, but are broken in the current version. Bug-security reports malfunctions that are risky to user security. Feature type requests for an implementation of a new function/feature. Task type, which is not a bug or feature, defines a piece of work that needs to be completed for an issue. A small group of issues did not have their issue types specified. From our study, we found that the issue reports whose issue type is a bug are the largest group in every top concerned privacy requirement \newtext{(see Table \ref{tab:issue-type})}. These bug issue reports as well as bug-regression and bug-security took less time to resolve comparing to feature request issue reports on average for all the top concerned privacy requirements. In addition, the bug issue reports usually involved with a smaller number of contributors and had less discussions than the feature request issue reports. We have also investigated the discussions of bug issue reports classified into the top concerned requirements. We found that the bug issues were fixed after fifteen comments. However, the discussions of feature issues contain more details (e.g. use case scenarios, discussion points, screenshots and code snippets) than the bug issues.
+
+There are seven different issue types in Moodle dataset: bug, epic, improvement, new feature, task, sub-task and functional test. The definitions of bug, new feature, task and sub-task issue types are similar to those mentioned in Chrome dataset. Epic issue type collects a group of issues that needs to be completed over a period of time. An improvement issue type is an enhancement to an existing feature. Functional test type contains the information and steps used for testing a particular function. From the analysis in Moodle dataset, the bug issue type contains the largest number of issue reports, followed by the feature issue type. We found that the bug issues did not only report the malfunctions, but they also reported the missing functionalities in the system (e.g. implement core\_privacy for block rss client). It is interesting to note that the new feature issues took less time to resolve comparing to the bug issues on average for all the requirements except R42. However, both issue types have similar number of comments (i.e. 11 to 12 comments) and number of contributors (i.e. 5).
+
+\begin{table}[h]
+	\centering
+	\caption{\newtext{Number of issue reports in Chrome and Moodle projects counted by issue type.}}
+	\label{tab:issue-type}
+	\resizebox{3.5in}{!}{
+	\begin{tabular}{p{2.5cm} p{1cm} p{2.5cm} p{1cm}}
+		\toprule
+		\textbf{Chrome} & \textbf{\#issues} & \textbf{Moodle} & \textbf{\#issues} \\
+		\midrule
+		Bug & 620 & Bug & 223 \\
+		Bug-regression & 59 & Epic & 3 \\
+		Bug-security & 36 & Improvement & 101 \\
+		Feature & 132 & New Feature & 75 \\
+		Task & 5 & Task & 26 \\
+		Unspecified & 44 & Sub-task & 37 \\
+		~ & ~ & Functional test & 13 \\
+		\bottomrule
+		\textbf{Total} & \textbf{896} & \textbf{Total} & \textbf{478} \\
+		\bottomrule
+	\end{tabular}%
+	}
+\end{table}
+
+\newtext{We have summarised and presented the number of mined privacy requirements by category and by top requirements in both Chrome and Moodle projects\footnote{A full analysis can be found in the replication package \cite{reppkg-pridp}.}. These categories represent a group of activities/functionalities related to privacy in the projects while the privacy requirements identify specific needs expected to be fulfilled in a system. From our analysis, it presented how frequent those activities were concerned in those projects. This result allows the contributors to carefully consider the privacy-related functionalities in their projects. Software engineers can easily use the privacy requirements in the taxonomy to identify specific functionalities that were malfunctioned (e.g. bugs), needed to be implemented (e.g. feature requests) or needed to be changed (e.g. change requests) in issue reports. They can be confident that those functionalities are required by the data protection and privacy regulations, standards and frameworks. The privacy requirements mapped to each issue report can be also used as privacy measures. The contributors can assess whether the privacy measures are passed or failed. If the privacy requirements are not implemented or not properly functioned, then this issue report is failed for this project. On the other hand, if the privacy requirements are implemented or properly worked, then this issue report is passed. However, we did the analysis with the fixed issue reports, thus we could not assess privacy measures in those projects.}
+
+\newtext{The top 10 privacy requirements in Chrome project covered 5 categories which are user participation, user desirability, notice, security and data processing (sorted by frequency). This set of privacy requirements covered only the data subjects subcategory in the notice category and collection and erasure subcategories in the data processing category. However, all the subcategories in user desirability category were all concerned. Most of the issue reports associated with the top 10 privacy requirements were bug, followed by feature issue type. This implies that Chrome had not properly implemented the functionalities related to providing users the way to execute their individual rights, obtaining and managing user consent and preferences and providing notice to users.}
+
+\newtext{Four categories including user participation, notice, security and user desirability were covered by the top 10 privacy requirements in Moodle. The data subjects and consent subcategories in the notice and user desirability categories were covered by this set of privacy requirements respectively. Unlike Chrome, the majority of the issue reports associated with the top 10 privacy requirements were feature request, followed by bug type. Moodle focused on implementing new features that allow users to execute their individual rights and inform users of relevant privacy-related information. In addition, Moodle also emphasised on implementing security measures to protect personal data.}
+
+\input{sections/RQ-privacy-vs-nonprivacy}

@@ -1,0 +1,1299 @@
+﻿Issue ID,Issue,Issue description,#Comments,Reported date,Fixed date,DateDiff (days),Issue Type,#Contributors,Priority
+MDL-61275,Collection of issues that capture the changes required to the user sign up process to comply with GDPR,To be released as a plugin with subsequent integration into core for Moodle 3.5,3,1/25/2018,5/17/2018,112,Epic,3,Minor
+MDL-61297,A new popup for showing the policy links to guests,"If enabled, show guest users a popup (similar toÂ the one used for cookie-law notifications commonly), for showing the policy links which affect them.Â ",1,1/29/2018,3/22/2018,52,Improvement,1,Minor
+MDL-61302,Add the workflow for allowing users to agree to the policies,Change the workflow for allowing users to agree to the policies if needed.,2,1/30/2018,3/22/2018,51,Improvement,1,Minor
+MDL-61308,Implement 'request' interface for mod_assign,This is an issue to track the creation of a prototype PHP Interface for {{\core\privacy\request}} as the API negotiating Subject Access Requests in the assignment module.,31,1/30/2018,5/9/2018,99,New Feature,8,Minor
+MDL-61397,Implement providers for non-data blocks,Implement the privacy provider API for blocks which have no real data.,29,2/8/2018,3/16/2018,36,New Feature,7,Critical
+MDL-61463,Confirm subsystems without paths can be skipped,"The compliance check in the dataprivacy tool (MDL-61489) currently skips these components based on an empty path. Strictly speaking, they are still components.
+
+We really need to consider whether we need to review and create providers for such components and how we'd do so (lib/classes/ ? ) 
+
+The full list is:
+access
+bulkusers
+countries
+currencies
+dbtransfer
+debug
+edufields
+error
+filepicker
+help
+hub
+imscc
+install
+iso6392
+langconfig
+license
+mathslib
+mimetypes
+pagetype
+pix
+plugin
+table
+timezones
+userkey",4,2/16/2018,5/17/2018,90,Task,3,Minor
+MDL-61475,Implement providers for mod_choice,Attempt to write mod_choice providers for the in-progress SAR API.,35,2/19/2018,3/16/2018,25,New Feature,6,Minor
+MDL-61618,Connect the Data Privacy tool to the subsystem's manager to facilitate data export,"Here's what needs to be done:
+
+1. New table 'tool_dataprivacy_request_contexts' to hold contexts for a given request
+Should have cols:
+- requestid
+- component
+- contextid
+- status (for now: pending, approved, rejected but allow for more)
+
+2. New constants in the apiÂ classÂ to hold the context statuses above (pending , approved, rejected etc)
+3. 'New request made' adhoc task updates:
+- generate the contextlist_collection
+- for each contextlist:
+** store the component, context, etc in 'tool_dataprivacy_request_contexts' table
+- progress the request (current code does this already)
+
+4. At the point of approving (before scheduling the adhoc task):
+- set status of all respective contexts in the table to 'approved' (may evolve to a UI control eventually)
+
+5. 'Request approved' adhoc task updates:
+- fetch list of approved contexts (those with status 'approved')
+- reassemble a contextlist collection for these using approved_contextlist instead of contextlist.
+- pass to manager->export()
+- TODO: consider how to 'mop up' the contexts in the 'tool_dataprivacy_request_contexts' table. Do we do now or later? (scheduled task ?)
+
+Note: This work should be based on the tool: [https://github.com/moodlehq/moodle-tool_dataprivacy]Â and on -MDL-61307- work.",4,3/9/2018,4/9/2018,31,New Feature,3,Minor
+MDL-61629,Implement core_privacy for message airnotifier.,Let's take a look atÂ messages and see if we can fully implement theÂ {{core_privacy}}Â API for at least one.,10,3/13/2018,4/6/2018,24,Improvement,5,Minor
+MDL-61637,Use a context-children-based method to retrieve the list of course blocks,"tool_dataprivacy is currently fetching blocks using get_course_blocks external function, which retrieves blocks instances ready to be displayed, we want access to all block instances regardless of their contents being visible to users.",13,3/13/2018,5/13/2018,61,Task,5,Minor
+MDL-61653,Write Web Services to service SARs,We need to write WS to serve the SARs to allow better integration with other systems.,0,3/15/2018,6/7/2018,84,Task,1,Major
+MDL-61681,Improve sorting of tours,Add timemodified to the list of sort fields,1,3/19/2018,6/7/2018,80,Task,1,Minor
+MDL-61691,Incorrect namespace in plagiarism privacy provider,"See here:
+https://github.com/moodle/moodle/blob/a235a6e02d0bf773b76f9e5545023cd27af118fd/plagiarism/classes/privacy/plagiarism_provider.php#L25",17,3/20/2018,3/30/2018,10,Bug,5,Major
+MDL-61692,Extend link_subsystem calls to allow components to specify privacy fields when linking,"Looking at the portfolio (and this may be the case for some other areas too), I see a situation where a given component calls the portfolio subsystem, which links to the plugin types (portfolio). The plugin types (Mahara for example) link externally.
+
+The issue I see here is that only the component (let's use forum as an example), knows what data it passes to the subsystem, and which subsequently gets exported externally. The subsystem and the plugins just pass it along, and don't know this. To me, it sounds like we need a way to say something like ""Link subsystem with this data"" - which we currently don't have with the link subsystem class. Right now, we don't / can't describe metadata about the fields sent externally through this flow: forum -> portfolio subsystem -> mahara plugin.
+
+I'd think one way to address this would be to allow passing in fields to link_subsystem.",15,3/20/2018,4/6/2018,17,Improvement,6,Blocker
+MDL-61697,Inconsistent Page Return after Data Request,"After making a Data request on behalf of another user, Moodle returns to the ""Users"" data request page, not the ""Admin"" data request page that you started on.
+# Go to /admin/tool/dataprivacy/datarequests.php
+# Click ""New Request""
+# Complete a request form & ""Save Changes""
+# You are now on ""admin/tool/dataprivacy/mydatarequests.php""
+
+This is a bit incongruous, andÂ on the ""mydatarequests"" page the user doesn't have the same actions they can undertake:
+
+ie. for an ""Awaiting Approval"" state they only get ""Cancel Request"", where on the ""datarequests"" page for the same item they can ""View/Approve/Deny"" the request.",5,3/21/2018,4/4/2018,14,Bug,4,Minor
+MDL-61699,Guardian of minors from non Eu countries,"Trying to create a new Moodle account from user , selecting an age like '12' and Country any Non EU Country like Afghanistan site considers that the user is a minor
+
+If a user from a non EU country tries to register it should be possible due in his country is no age restriction.
+
+Â ",2,3/21/2018,4/5/2018,15,Bug,2,Minor
+MDL-61703,Remove context_system restriction when storing user prefs,"As raised by [~gb2048] in https://moodle.org/mod/forum/discuss.php?d=365857#p1482411
+
+It seems that there are valid reasons to store user preferences at the non-system context.
+
+Plugins which need to do this will need to be based on the next point release, rather than the current one in order to do this.",8,3/21/2018,4/6/2018,16,Bug,4,Minor
+MDL-61704,Use modal window to display acceptance on behalf,"it is possible to render a form in a modal, let's do it for the acceptance on behalf form",2,3/21/2018,4/5/2018,15,Bug,2,Minor
+MDL-61712,Add a cache for purposes,We could also add one for categories but the really important one is for purposes as purposes contain retention periods and retention periods is what we need to fetch while calculating which contexts should be deleted.,1,22/3/2018,12/4/2018,22,Task,1,Minor
+MDL-61714,Change default age of digital consent according to current legislation on each country,As discussed in the French forums here [https://moodle.org/mod/forum/discuss.php?d=367653#p1482823]Â the digital age of consent in France was changed to 15 in February. Can this now be changed in Site admin defaults?,21,3/22/2018,5/13/2018,52,Bug,11,Minor
+MDL-61721,tool_dataprivacy: Page breaks when loaded with clean theme on 3.3,"Originally reported by [~fred] at https://github.com/moodlehq/moodle-tool_dataprivacy/issues/19
+
+{code}
+This page: /admin/tool/dataprivacy/dataregistry.php
+
+Debug info: core/single_button
+Error code: filenotfound
+Stack trace:
+
+line 125 of /lib/classes/output/mustache_template_finder.php: moodle_exception thrown
+line 54 of /lib/classes/output/mustache_filesystem_loader.php: call to core\output\mustache_template_finder::get_template_filepath()
+line 99 of /lib/mustache/src/Mustache/Loader/FilesystemLoader.php: call to core\output\mustache_filesystem_loader->getFileName()
+line 82 of /lib/mustache/src/Mustache/Loader/FilesystemLoader.php: call to Mustache_Loader_FilesystemLoader->loadFile()
+line 643 of /lib/mustache/src/Mustache/Engine.php: call to Mustache_Loader_FilesystemLoader->load()
+line 77 of data/localcache/mustache/1521706807/clean/__Mustache_dce0fc8c4319649dd9a569a30c1ebe7d.php: call to Mustache_Engine->loadPartial()
+line 19 of data/localcache/mustache/1521706807/clean/__Mustache_dce0fc8c4319649dd9a569a30c1ebe7d.php: call to __Mustache_dce0fc8c4319649dd9a569a30c1ebe7d->sectionE392155473be045575f7c7f54cb7ce17()
+line 67 of /lib/mustache/src/Mustache/Template.php: call to __Mustache_dce0fc8c4319649dd9a569a30c1ebe7d->renderInternal()
+line 177 of /lib/outputrenderers.php: call to Mustache_Template->render()
+line 91 of /admin/tool/dataprivacy/classes/output/renderer.php: call to renderer_base->render_from_template()
+line 401 of /lib/outputrenderers.php: call to tool_dataprivacy\output\renderer->render_data_registry_page()
+line 41 of /admin/tool/dataprivacy/dataregistry.php: call to plugin_renderer_base->render()
+{code}",3,3/23/2018,4/4/2018,12,Bug,3,Minor
+MDL-61731,Implement core_privacy for a message email.,Implement the privacy provider for message email.,12,3/23/2018,4/13/2018,21,New Feature,5,Minor
+MDL-61743,Incorrect restrictions in helper delete/export when called from mod,"A mod can export for non-mod contexts, but the helper does not cope with this.
+
+Bad combination of checking component name for mod, and a strict type hint of context_module on the functions they call.
+
+{code}
+If I try to delete user contexts I get the same error I reported Yesterday 
+
+Error code: generalexceptionmessage
+* line 275 of /privacy/classes/local/request/helper.php: TypeError thrown
+* line 95 of /privacy/classes/local/request/helper.php: call to core_privacy\local\request\helper::delete_data_for_all_users_in_context_course_module()
+* line 267 of /privacy/classes/manager.php: call to core_privacy\local\request\helper::delete_data_for_all_users_in_context()
+* line 90 of /admin/tool/dataprivacy/classes/expired_contexts.php: call to core_privacy\manager->delete_data_for_all_users_in_context()
+* line 61 of /admin/tool/dataprivacy/classes/task/expired_retention_period.php: call to tool_dataprivacy\expired_contexts->delete()
+* line 156 of /admin/tool/task/cli/schedule_task.php: call to tool_dataprivacy\task\expired_retention_period->execute()
+
+!!! Exception - Argument 2 passed to core_privacy\local\request\helper::delete_data_for_all_users_in_context_course_module() must be an instance of context_module, instance of context_user given, called in [dirroot]/privacy/classes/local/request/helper.php on line 95 !!!
+{code}
+
+[~dmonllao] will hopefully be able to advise which plugin this breaks on for replication instructions.",22,3/24/2018,4/13/2018,20,Bug,7,Blocker
+MDL-61751,Missing polyfill for plagiarism provider interface,Mentioned on MDL-61691. Need to provide this polyfill for plugins to use.,17,3/26/2018,4/6/2018,11,Improvement,4,Minor
+MDL-61752,Merge data privacy settings and links to the common Privacy and Policy admin tree branch,The summary describes pretty much everything.,13,3/26/2018,4/3/2018,8,Task,5,Minor
+MDL-61764,Implement core_privacy for message popup.,Implement the privacy provider for message popup.,7,3/28/2018,4/25/2018,28,New Feature,6,Minor
+MDL-61780,Policy settings' and 'Site policies' site admin UI confusion,"It seems confusing having 'Policy settings' (including the 'Site policy URL') and 'Site policies'Â in the site admin UI.
+
+How about if we change the name 'Site policies' to 'Site settings'? The word 'Site' is kept in the name for familiarity and 'settings' is consistent with otherÂ site admin pages.",5,3/28/2018,4/4/2018,7,Bug,4,Minor
+MDL-61795,Implement core_privacy for block rss client,Implement the privacy provider for block_rss_client.,14,3/29/2018,4/13/2018,15,New Feature,5,Minor
+MDL-61803,Missing string for cache definition in tool_policy causes unit test failure,"Missing string 'cachedef_toolpolicy' causes core_cache_administration_helper_testcase::test_get_summaries test to fail. See the following:
+core_cache_administration_helper_testcase::test_get_summaries
+Unexpected debugging() call detected.
+Debugging: String does not exist. Please check your string definition for cachedef_toolpolicy/tool_policy
+* line 10013 of /lib/moodlelib.php: call to debugging()
+* line 623 of /cache/classes/definition.php: call to lang_string->__construct()
+* line 823 of /cache/locallib.php: call to cache_definition->get_name()
+* line 97 of /cache/tests/administration_helper_test.php: call to cache_administration_helper::get_definition_summaries()
+* line ? of unknownfile: call to core_cache_administration_helper_testcase->test_get_summaries()
+* line 1085 of /vendor/phpunit/phpunit/src/Framework/TestCase.php: call to ReflectionMethod->invokeArgs()
+* line 936 of /vendor/phpunit/phpunit/src/Framework/TestCase.php: call to PHPUnit_Framework_TestCase->runTest()
+* line 91 of /lib/phpunit/classes/advanced_testcase.php: call to PHPUnit_Framework_TestCase->runBare()
+* line 701 of /vendor/phpunit/phpunit/src/Framework/TestResult.php: call to advanced_testcase->runBare()
+* line 892 of /vendor/phpunit/phpunit/src/Framework/TestCase.php: call to PHPUnit_Framework_TestResult->run()
+* line 753 of /vendor/phpunit/phpunit/src/Framework/TestSuite.php: call to PHPUnit_Framework_TestCase->run()
+* line 753 of /vendor/phpunit/phpunit/src/Framework/TestSuite.php: call to PHPUnit_Framework_TestSuite->run()
+* line 753 of /vendor/phpunit/phpunit/src/Framework/TestSuite.php: call to PHPUnit_Framework_TestSuite->run()
+* line 465 of /vendor/phpunit/phpunit/src/TextUI/TestRunner.php: call to PHPUnit_Framework_TestSuite->run()
+* line 185 of /vendor/phpunit/phpunit/src/TextUI/Command.php: call to PHPUnit_TextUI_TestRunner->doRun()
+* line 115 of /vendor/phpunit/phpunit/src/TextUI/Command.php: call to PHPUnit_TextUI_Command->run()
+* line 47 of /vendor/phpunit/phpunit/phpunit: call to PHPUnit_TextUI_Command::main()
+Â ",2,3/30/2018,4/4/2018,5,Bug,2,Minor
+MDL-61814,Implement the privacy provider for core_user.,Implement the core_privacy provider for core_user.,26,4/1/2018,5/13/2018,42,Improvement,8,Major
+MDL-61817,Implement core_privacy for tinymce plugins,Probably all null providers.,10,4/1/2018,4/6/2018,5,Bug,4,Minor
+MDL-61819,Implement core_privacy for a text editors,"# editor_textarea should be easy
+# editor_tinymce... we'll see
+# editor_atto - user preferences",19,4/2/2018,4/18/2018,16,Bug,5,Minor
+MDL-61841,tool_policy: Not clear from UI that manager/parent can agree to the policies by clicking on red cross,"UI needs to be improved so it is more clear that red X is actually clickable
+
+See mockups 
+https://projects.invisionapp.com/share/WJFKUJA6BVD#/screens/279738984
+https://projects.invisionapp.com/share/WJFKUJA6BVD#/screens/277570491
+https://projects.invisionapp.com/share/WJFKUJA6BVD#/screens/277606661",7,4/4/2018,5/22/18,48,Bug,5,Minor
+MDL-61844,When saving policy as active or creating new policy the current user is requested to accept policy,"During some policy editing actions manager is requested to accept new policies. During some other actions manager is not (even though active policies have changed). 
+
+There are behat tests that have ""TODO"" with this MDL number to help investigate it, see https://github.com/moodlehq/moodle-tool_policy/pull/35
+
+Interesting that behat test ""Edit active policy and save as new active version"" works for manager but some others don't.",10,4/4/2018,4/18/2018,14,Bug,3,Minor
+MDL-61845,tool_policy: Add more behat tests,"The following behat tests are still absent:
+
+Manage policies interface:
+- Make sure that users are requested to agree to new policies or new policy versions on the next login
+- Deleting and changing sort order of policies
+
+Parent functionality:
+- Make sure parent can accept new policies on behalf of their child
+
+User agreements:
+- Behat tests for filters",2,4/4/2018,9/13/2018,162,Bug,2,Major
+MDL-61846,Implement core_privacy for dataformat plugins.,Implement core_privacy for dataformat plugins.,10,4/5/2018,4/13/2018,8,New Feature,6,Minor
+MDL-61848,Implement providers for auth_manual,Attempt to write auth_manual providers for the in-progress SAR API.,22,4/5/2018,4/21/2018,16,New Feature,5,Minor
+MDL-61857,tool_policy: Do not display select column if there are no checkboxes,"h3. Steps to reproduce
+
+# With the plugin installed using the default permissions
+# Log in as Manager - so that you do not have the permission to accept policies on behalf of other users
+# Go to the User agreements report
+
+* Expected behaviour: As you can't mark policies as agreed, there is no point of showing the empty first column ""Select""
+* Actual behaviour: Column heading is displayed, overlapping with the other heading.
+
+!screenshot-1.png|thumbnail!",2,4/5/2018,3/21/19,350,Bug,3,Minor
+MDL-61863,Implement providers for core_notes,Implement providers for core_notes,25,4/5/2018,4/28/2018,23,Improvement,8,Minor
+MDL-61864,Prepare tool_policy for integration in 3.5,"Prepare plugin tool_policy for integration in 3.5
+
+*Removed files:
+** README.md
+** LICENSE.md
+** .travis.yml
+* version.php changed to look like a standard plugin
+
+
+",26,4/5/2018,4/21/2018,16,Improvement,8,Major
+MDL-61866,tool_policy: thirdpartylibraries are defined incorrectly,"1. -Need to be two entries, one for JS file and another for styles.css- (edited: sorry, we don't need this)
+2. Inside styles.css it should be clear which styles are from the library and which are additional
+3. readme_moodle.txt is absent - it needs to explain where the library was imported from and how to upgrade",8,4/5/2018,4/18/2018,13,Bug,3,Minor
+MDL-61867,Implement core_privacy for fileconverter_unoconv,Implement core_privacy for fileconverter_unoconv.,10,4/5/2018,4/13/2018,8,New Feature,6,Minor
+MDL-61872,tool_dataprivacy using non existing method,"TheÂ  [moodle-tool_dataprivacy|https://github.com/moodlehq/moodle-tool_dataprivacy/]Â plugin created by MoodleHQ currently does not execute itsÂ process_data_request_task correctly.
+
+If there are requests the tool will try to call the method: ""\core_privacy\manager::delete_user_data"" in line [117|https://github.com/moodlehq/moodle-tool_dataprivacy/blob/MOODLE_34_STABLE/classes/task/process_data_request_task.php#L117]Â but this method does not exist in the currently implemented privacy API.Â 
+
+[delete_data_for_user|https://github.com/moodle/moodle/blob/MOODLE_34_STABLE/privacy/classes/manager.php#L233] would be the correct method to call i think, as they share the same method signature.",1,4/6/2018,4/11/2018,5,Bug,2,Minor
+MDL-61873,Implement core_privacy for auth plugins (not oauth2 and manual),"Probably all null providers. (Not auth_oauth2 and auth_manual MDL-61848)
+
+auth_cas
+auth_db
+auth_email
+auth_ldap
+auth_lti
+auth_mnet
+auth_nologin
+auth_none
+auth_shibboleth
+auth_webservice
+
+Â 
+
+For Moodle 3.3.5 has to:
+
+auth_imap
+auth_fc
+auth_pam
+auth_pop3
+auth_nntp",13,4/6/2018,4/13/2018,7,New Feature,4,Minor
+MDL-61874,Make tool_dataprivacy\page_helper more generic,The current page_helper class is very specific to the data registry administration. We must make this a bit more generic so it can be reused by other data privacy admin pages.,3,4/6/2018,4/7/2018,1,Bug,3,Minor
+MDL-61875,Split out manager->get_components_list into a core function,"This list of frankenstyle names for all core components (plugins + core subsystems) is used all over the place in both this project and in places in core too (search and others). We should have a function in core_component which provides this, instead of having to assemble this list manually all over the place.
+
+This change should introduce the function in core and make the manager use this instead of its current internal implementation.",17,4/6/2018,4/13/2018,7,Improvement,4,Minor
+MDL-61877,Implement core_privacy for core_competency,See summary.,30,4/6/2018,5/9/2018,33,New Feature,8,Minor
+MDL-61878,Implement core_privacy for fileconverter_googledrive,Implement core_privacy for fileconverter_googledrive,8,4/6/2018,4/21/2018,15,New Feature,5,Minor
+MDL-61882,Implement providers for auth_oauth2,Implement providers for auth_oauth2,23,4/7/2018,4/25/2018,18,New Feature,6,Minor
+MDL-61888,Avoid using $OUTPUT in tool_dataprivacy adhoc tasks,"As discovered in MDL-61800, the Task API doesn't seem to setup $OUTPUT properly. This causes adhoc tasks that send email notifications as these use $OUTPUT to render the templates for the email messages.
+
+This would also (probably) block tool_dataprivacy from getting integrated to master.
+
+To workaround this, remove the usages of $OUTPUT and templates in the tool's adhoc tasks.",4,4/7/2018,4/9/2018,2,Bug,3,Blocker
+MDL-61889,Address Travis failures in tool_dataprivacy,I dream of seeing a green Travis build for the tool_dataprivacy. We need to address this.,11,4/7/2018,6/29/2018,83,Bug,5,Minor
+MDL-61895,Implement core provider for availability plugins,Implement availability plugins,8,4/8/2018,4/13/2018,5,Bug,4,Minor
+MDL-61898,"Implement core_privacy for core_cache, cachestores, etc.","* core_cache
+* cachestore plugintype",11,4/9/2018,5/9/2018,30,Bug,5,Minor
+MDL-61899,Include tool_dataprivacy in core,This issue is about including https://github.com/moodlehq/moodle-tool_dataprivacy in core and it is closely related to privacy API and MDL-61306.,112,4/9/2018,4/21/2018,12,New Feature,12,Blocker
+MDL-61902,Implement core_privacy for media plugins.,Implement core_privacy forÂ media plugins.,7,4/9/2018,4/18/2018,9,New Feature,6,Minor
+MDL-61903,Implement core_privacy for webservice plugins.,Implement core_privacy for webservice plugins.,6,4/10/2018,4/18/2018,8,New Feature,5,Minor
+MDL-61908,Same heading appearing twice on Data privacy pages,"Multiple pages in the Data privacy (tool_dataprivacy) plugin have the same heading displayed twice.
+
+!screenshot-1.png|thumbnail! 
+
+This is because these page set the same text by both {{$PAGE->set_heading()}} and {{echo $OUTPUT->heading($title);}}. It is common that pages like this should use
+{code}
+$PAGE->set_heading($SITE->fullname);
+{code}
+
+instead.",16,4/10/2018,9/21/2018,164,Bug,6,Minor
+MDL-61915,Implement core_privacy for enrol plugins (not lti and paypal),"Probably all null providers. (Not enrol_lti and enrol_paypal).
+
+enrol_category
+enrol_cohort
+enrol_database
+enrol_flatfile
+enrol_guest
+enrol_imsenterprise
+enrol_ldap
+enrol_manual
+enrol_meta
+enrol_mnet
+enrol_self",13,4/10/2018,4/25/2018,15,New Feature,5,Minor
+MDL-61918,Implement core_privacy for assignment plugins.,Implement core_privacy for assignment plugins.,8,4/10/2018,4/18/2018,8,New Feature,7,Minor
+MDL-61919,Implement core_privacy API for core_message subsystem,"Implement core_privacy API for core_message subsystem.
+
+This covers the sending/receiving of all core messages and notifications in Moodle.",18,4/10/2018,5/9/2018,29,Bug,5,Minor
+MDL-61920,Implement core_privacy for LTI and all subplugins,Implement core_privacy for LTI and all subplugins,19,4/10/2018,5/9/2018,29,Bug,7,Minor
+MDL-61925,Enable contexts to be added without SQL,"In the get_contexts_for_userid() provider method, it would be useful to be able to add known contexts directly when a plugin stores all its data at that context. The only two use cases for this I can think of are the system context and the user context, so it may not be worth making set_contextids() public, but a couple of helper methods like add_system_context() and add_user_context($userid) would be useful.
+
+At the moment you have to do something like this, which seems absurd:
+{code} public static function get_contexts_for_userid(int $userid): contextlist {
+$result = new contextlist('local_someplugin');
+$result->add_from_sql('SELECT id FROM {context} WHERE id = ?', [\context_system::instance()->id]);
+return $result;
+}
+{code}",1,4/11/2018,5/17/2018,36,New Feature,3,Minor
+MDL-61935,Provide means for the Privacy Officer to set lawful basis for defining purposes for collection of personal data,"We need to add form controls that let the Privacy Officer select one or more items defined in GDPR Art 6: Lawfulness of processing and GDPR Art 9: Sensitive Personal Data.
+
+https://docs.google.com/document/d/140ntePga4GmR8R8VAQuOC1AJfEW0mKLzgV-aNfb60y0/edit
+",4,4/12/2018,4/14/2018,2,Task,3,Minor
+MDL-61937,Implement core_privacy for mod_data and datafields,"Implement core_privacy for mod_data and datafields:
+* datafield_checkbox
+* datafield_date
+* datafield_file
+* datafield_latlong
+* datafield_menu
+* datafield_multimenu
+* datafield_number
+* datafield_picture
+* datafield_radiobutton
+* datafield_text
+* datafield_textarea
+* datafield_url",33,4/12/2018,5/9/2018,27,New Feature,10,Minor
+MDL-61944,Implement providers for tool_mobile,"Implement core_privacy for admin/tool/mobile.
+
+It has a user preference: tool_mobile_autologin_request_last",13,4/12/2018,4/28/2018,16,New Feature,4,Minor
+MDL-61945,Implement providers for core_register,Implements Null Provider.,10,4/12/2018,4/21/2018,9,New Feature,6,Minor
+MDL-61948,Implement core_privacy for core media.,Implement core_privacy for core media.,6,4/12/2018,4/21/2018,9,New Feature,5,Minor
+MDL-61952,Implement core_privacy API for gradeexport,"Implement core_privacy for gradeexport plugins:
+* gradeexport_ods
+* gradeexport_txt
+* gradeexport_xls
+* gradeexport_xml",9,4/12/2018,4/18/2018,6,New Feature,5,Minor
+MDL-61954,Implement core_privacy API for gradeimport,"Implement core_privacy for gradeimport plugins:
+* gradeimport_csv
+* gradeimport_direct
+* gradeimport_xml",7,4/12/2018,4/18/2018,6,New Feature,5,Minor
+MDL-61957,Implement core_privacy API for gradereport,"Implement core_privacy forÂ gradereport plugins:
+* gradereport_grader
+* gradereport_history
+* gradereport_outcomes
+* gradereport_overview
+* gradereport_singleview
+* gradereport_user",11,4/13/2018,4/21/2018,8,New Feature,5,Minor
+MDL-61959,Implement core_privacy for mod_scorm,"Implement the privacy API in the SCORM module.
+
+",22,4/13/2018,5/2/2018,19,New Feature,9,Minor
+MDL-61966,Myoverview block incorrectly implements Privacy API,"The 'myoverview' ('/blocks/myoverview') block records the user preference for the state of its tabs.Â  For example in lib.php there is:
+
+````
+
+function block_myoverview_user_preferences() \{
+$preferences = array();
+$preferences['block_myoverview_last_tab'] = array(
+'type' => PARAM_ALPHA,
+'null' => NULL_NOT_ALLOWED,
+'default' => BLOCK_MYOVERVIEW_TIMELINE_VIEW,
+'choices' => array(BLOCK_MYOVERVIEW_TIMELINE_VIEW, BLOCK_MYOVERVIEW_COURSES_VIEW)
+);
+
+return $preferences;
+}
+
+````
+
+being the user preference 'block_myoverview_last_tab'.Â  However in 'classes/privacy/provider.php' the 'null_provider' class is implemented 'class provider implements \core_privacy\local\metadata\null_provider' indicating that no user data is stored.Â  This is clearly not the case.Â  The language file states 'The Course overview block only shows data stored in other locations.' but it stores a user preference pertaining to a user id.",11,4/13/2018,4/25/2018,12,Bug,6,Major
+MDL-61970,Implement core_privacy for mod_survey,See summary.,16,4/13/2018,4/21/2018,8,New Feature,7,Minor
+MDL-61971,Warn when downloading GDPR export over HTTP,"Suggestion from Martin:
+{quote}
+Please contact your system administrator to let them know that they need to install SSL on this site to allow features like this to work properly.
+{quote}
+
+Or something like that.",10,4/13/2018,5/13/2018,30,Bug,7,Blocker
+MDL-61977,Implement core_privacy for tool_profiling,"Implement null providers for tool_profiling.
+
+This plugin does access data from the mdl_profiling table, where the data is inserted by the lib/xhprof/xhprof_moodle.php script -> function profiling_import_runs().
+
+However, the mdl_profiling table does not contain any user identifiable data.",6,4/13/2018,4/18/2018,5,Improvement,5,Minor
+MDL-61984,Implement core_privacy for mod_chat,See summary.,18,4/14/2018,4/25/2018,11,New Feature,7,Minor
+MDL-61986,Implement core_privacy for mod_lesson,See summary.,16,4/14/2018,4/28/2018,14,New Feature,7,Minor
+MDL-61994,Implement providers for mod_glossary,Attempt to write mod_glossary providers for the in-progress SAR API.,32,4/16/2018,5/13/2018,27,Improvement,6,Major
+MDL-62006,Determine and implement privacy support of short lived chat data,"The chat module stores information in _chat_users_ and _chat_messages_current.
+
+The table _chat_users_ contains a list of users who appear to be active in a chat and is cleaned on a regular basis, whether by cron, or is triggered as part of user requests.
+
+The table _chat_messages_current_ contains a list of recent messages from a chat, it appears to be a temporary cache for fast fetching of latest chat messages. Messages older than 8 hours are purged on a regular basis through cron runs.
+
+In this issue we must decide whether reporting and exporting of such information is needed, and if yes implement it. This follows the work done in MDL-61984.",2,4/17/2018,6/7/2018,51,Improvement,3,Minor
+MDL-62015,Auto select new purposes and categories,"The data registry UI allows us to easily create new purposes and categories. Once a new item is created we reload the current page but we don't autoselect the new item.
+
+Some extra info:
+
+Eloy raised this topic during MDL-61899 review:
+
+_When adding categories or purposes, I'd expect the just created one to become automatically selected in the dropdow. Right now you've to pick it after being created._
+
+And I replied this:
+
+_It is not that simple and it needs more definition. Imagine that a specific context already have a selected purpose, you add another one and we reload the page selecting the new purpose; if the user just leaves the page the new purpose is added but not linked to that context, if we save it automatically we may be doing ""too much""... I don't have any preference, just that what is the best solution is not 100% clear to me and it should be discussed with UX team._",0,4/18/2018,6/7/2018,50,Improvement,1,Minor
+MDL-62026,Data Protection Officer cannot change pending status on other enquiries,"Hello,
+
+If a user uses the link ""Contact Data Protection Officer"" the said CDPO cannot answer to this message in data requests the only action available for this kind of data request is ""view the request"" so the request is will be indefinitely in ""pending"" status.
+
+Tested with Moodle 3.3.5 and Data privacy tool_dataprivacy 33.0.0 (2017051500)
+
+Â 
+
+Â ",41,4/18/2018,7/13/2018,86,Bug,10,Major
+MDL-62029,Implement core_privacy for course,Update core_course to use the privacy system.,24,4/18/2018,5/13/2018,25,Bug,10,Minor
+MDL-62031,Restored courses should restore the backup purpose and category,"This was proposed by Eloy during MDL-61899 review. If the backup is imported from another site I would say that it may be better to not restore it, as we don't have any idnumber to reference.",3,4/18/2018,5/18/18,30,New Feature,3,Minor
+MDL-62047,Implement core_privacy for a core_userkey,This is a bit more complex than others as this subsystem does not have a data directory just yet.,12,4/19/2018,4/25/2018,6,Improvement,6,Blocker
+MDL-62049,Wrong string used in the function transform::date meaning no date is displayed,"We are only showing the time, no date.",13,4/19/2018,4/25/2018,6,Bug,5,Minor
+MDL-62055,Implement core_privacy API for mod_imscp,Implement core_privacy for mod_imscp,6,4/20/2018,4/25/2018,5,New Feature,5,Minor
+MDL-62056,Adapt tool_policy to avoid travis errors on Github plugin project,"When MDL-61864 was finished, the code for the Moodle 3.3 and 3.4 tool_policy plugin has been updated, to align the versions.
+
+As travis on the GitHub project ([https://github.com/moodlehq/moodle-tool_policy]) is more strict than CiBot, some minor changesÂ should be done in the code for removing these travis errors.",9,4/20/2018,5/13/2018,23,Improvement,5,Minor
+MDL-62060,Use JSON_UNESCAPED_UNICODE for the data export,To ensure that the exported JSON file is human readable.Â  E.g.Â Persian text (ÙØªÙ)Â is currently outputted asÂ \u0645\u062a\u0646.,15,4/20/2018,5/2/2018,12,Bug,8,Minor
+MDL-62062,Change policy agreements once the policies has been accepted,"Eva Karall has posted the following comment to [https://moodle.org/plugins/tool_policy:]
+
+{{Will there be a possibility to opt out (disagree) again from a policy? I cannot find anything about it. Thanks.}}
+
+Â 
+
+We should add a link in the profile to [http://yourmoodleurl//admin/tool/policy/index.php]Â for let him/her change the agreements.",28,4/20/2018,5/9/2018,19,Improvement,8,Minor
+MDL-62079,Implement core_privacy for core_filters,core_filters does not define any data.,6,4/23/2018,4/25/2018,2,Improvement,5,Minor
+MDL-62134,Add error handling for exports and deletes,"At the moment if any plugin's privacy API implementation causes an exception, the whole request fails.
+
+Arguably this is correct - we want to make sure the request completed correctly wherever possible, however it may be worth adding some try/catch checks around some requests to allow requests to come to some level of completion and instead alert an administrator somehow.
+
+Also consider rolling back database transactions.",21,4/23/2018,5/17/2018,24,Improvement,7,Minor
+MDL-62135,Implement core_privacy for tool_log and subplugins,See summary.,15,4/23/2018,5/9/2018,16,New Feature,5,Minor
+MDL-62136,Implement providers for core_hub and core_publish,"Implement providers for core_hub and core_publish. Review core_register and block_community
+
+Putting them all together because they all are part of moodle.net / hub communication
+
+*Note, code is different for Moodle 3.3 !*",2,4/23/2018,5/4/2018,11,Improvement,1,Minor
+MDL-62141,tool_privacy: impossible to define provider for core subsystem without directory,"For core subsystems that do not have directory it is impossible to define a provider because the classes can only be placed in lib/classes/SUBSYSTEM/ and, therefore, they will have a namespace core\SUBSYSTEM 
+
+tool_privacy expects them to be in namespace core_SUBSYSTEM",4,4/23/2018,5/4/2018,11,Bug,2,Minor
+MDL-62162,$PAGE->context was not set error when accessing to policy/viewall.php,"Juan has discovered the followingÂ while adding support toÂ the tool_policy for the mobile app.Â When accessing to /admin/tool/policy/viewall.php page, the following error is displayed:
+{code:java}Coding problem: $PAGE->context was not set. You may have forgotten to call require_login() or $PAGE->set_context(). The page may not display correctly as a result
+line 493 of /lib/pagelib.php: call to debugging()
+line 1544 of /lib/pagelib.php: call to moodle_page->magic_get_context()
+line 677 of /lib/pagelib.php: call to moodle_page->initialise_theme_and_output()
+line 864 of /lib/pagelib.php: call to moodle_page->magic_get_theme()
+line 161 of /admin/tool/policy/classes/api.php: call to moodle_page->get_renderer()
+line 57 of /admin/tool/policy/classes/api.php: call to tool_policy\api::list_policies()
+line 73 of /admin/tool/policy/classes/output/page_viewalldoc.php: call to tool_policy\api::list_current_versions()
+line 57 of /admin/tool/policy/classes/output/page_viewalldoc.php: call to tool_policy\output\page_viewalldoc->prepare_policies()
+line 37 of /admin/tool/policy/viewall.php: call to tool_policy\output\page_viewalldoc->__construct()
+{code}
+Â ",6,4/24/2018,4/25/2018,1,Bug,5,Minor
+MDL-62169,Implement core_privacy for mod_assignment,Implement core_privacy for mod_assignment.,17,4/24/2018,5/9/2018,15,Improvement,6,Minor
+MDL-62175,Web Service auth_email_signup_user is not setting correctly the policyagreed to 1,"MDL-61477 introduced a change in the external function core_auth_external:email_signup_user to replace the old if !empty($CFG->sitepolicy) check with the new privacy manager defined check. The problem is that was replaced incorrectly with the negative check so now is behaving contrary to expected.
+
+See https://github.com/moodle/moodle/commit/1727c939ba2a9498aaa2caf438f243860f54dd23#diff-44dd56610fe1e6bbff0776a368da5cbaL290",12,4/24/2018,4/28/2018,4,Bug,6,Critical
+MDL-62208,Implement core_privacy for core_fileconverter,See summary.,7,4/26/2018,5/2/2018,6,New Feature,5,Minor
+MDL-62209,Data requests should be sorted by ascending status and request date,DPOs should see data requests in FIFO order. Seeing data requests piled at the bottom of the list is not a very good user experience.,8,4/26/2018,5/2/2018,6,Bug,5,Minor
+MDL-62231,Implement providers for block_recent_activity,Attempt to write block_recent_activity providers for the in-progress SAR API.,10,4/27/2018,5/2/2018,5,New Feature,5,Minor
+MDL-62235,Implement core_privacy for core_files,See summary.,8,4/27/2018,5/2/2018,5,New Feature,5,Minor
+MDL-62240,Export fails if some of the paths has more than 255 characters,"When some of the contexts, such as a Course name or a Category name, have 255 characters (the maximum allowed), the export privacy data process fails:
+
+Â 
+{code:java}
+PHP Warning: mkdir(): File name too long in xxxx/moodle/lib/setuplib.php on line 1481
+{code}
+Â ",21,4/28/2018,5/9/2018,11,Bug,5,Minor
+MDL-62264,Implement core_privacy for mnet,"Implement core_privacy for mnet, will be probably a null_provider.
+
+DB TableÂ mnet_sso_access_control is not needed declare and export. The field username isn't linked to any table. This field is used to allow or deny specific access to a user with this username. But it doesn't created a link with the user.
+* auth_mnet implements:
+** DB Tables,Â mnet_session andÂ mnet_log.
+* mnetservice_enrol implements:
+** DB Table,Â mnetservice_enrol_enrolments
+
+Â ",6,4/30/2018,5/9/2018,9,Improvement,5,Minor
+MDL-62269,Implement core_privacy for auth_mnet plugin,"InÂ recent versions, data is not being stored in the table mnet_log,Â but it can store data from a previous Moodle version upgraded.
+
+Table mnet_session only stores data temporarily, so it's not necessary to export this data.
+
+It's necessary:
+* declare mnet_session
+* declare and export mnet_log
+
+To improve the PHP memory usage, the export creates a file for every external system/course set.",20,5/1/2018,5/13/2018,12,Bug,5,Minor
+MDL-62281,Empty row being shown in user's policies page,"To reproduce:
+# Log in as admin.
+# Go to ""{{Site administration / Privacy and policies / Manage policies}}""
+# Create a policy, Policy 1. Make this policy active.
+# In another browser session (e.g. incognito), log in as a user s1 and agree to this policy.
+# Back to the admin's browser, deactivate Policy 1
+# Create another policy, Policy 2. Make this policy active.
+# In s1's browser, log out, then log in again.
+# Agree to Policy 2.
+# Go to your profile page and click ""{{Policies and agreements}}""
+# *Expected:* You should only see Policy 2 listed on the table and there shouldn't be a blank row.
+# *Actual:* There is a blank row
+!user-view.png|thumbnail!",8,5/1/2018,5/9/2018,8,Bug,5,Minor
+MDL-62286,Add policy link to the site footer,"Anywhere in the site the policy statements need to be linked from the site footer (accessible for everyone on the landing page, or in the site as a guest, or as an authenticated user). For both Boost and Clean themes.
+# Add a single link called âPoliciesâ to the site footer
+# Clicking on that link should go to a publically available page on the site (i.e. you donât need to be logged in to access this page).
+# This page should display a linked index listing each *active* policy \{NAME,TYPE} [Link to text]
+# Clicking each link will navigate the user to the policy summary text and full text below it.
+# Draft or inactive policies are not shown
+
+Â 
+
+E.g. 
+
+Â 
+h1. Policies
+# \{Privacy policy name, Privacy policy} [link to overall privacy policy below]
+# \{Site policy name, Site policy} [link to site policy below]
+# \{3rd party policy name, 3rd Party [policy] [link to 3rd party policy below]
+
+Â 
+h2. Overall privacy policy
+
+Summary
+
+INSERT SUMMARY TEXT
+
+Full policy
+
+INSERT FULL POLICY TEXT
+
+Â 
+h2. Site policy
+
+Summary
+
+INSERT SUMMARY TEXT
+
+Full policy
+
+INSERT FULL POLICY TEXT",13,5/1/2018,5/9/2018,8,Bug,7,Major
+MDL-62308,Implement provider for core_backup,Yeh.,11,5/3/2018,5/13/2018,10,Improvement,5,Minor
+MDL-62315,Implement provider for core_form,There are user preference sin filemanager.js. Check to see if they're handled elsewhere or not (such as files).,14,5/3/2018,5/9/2018,6,Task,5,Minor
+MDL-62318,Implement providers for core_group,Attempt to write core_group providers for the in-progress SAR API.,22,5/3/2018,5/13/2018,10,New Feature,5,Minor
+MDL-62338,Backup provider located in weird location,Due to autoclass loading (see fetch_subsystems() in lib/classes/component.php) the provider was put in \{\{backup/util/ui}}.,1,5/7/2018,6/7/2018,31,Improvement,2,Minor
+MDL-62340,If backup data contains information of a user that has asked to be deleted we should not restore it,"The core_backup provider implemented in MDL-62308 does not actively remove user data from the backup (because that would be insane), so when restoring these backups we should ignore users who dont want to be remembered.",3,5/7/2018,5/9/2018,2,Improvement,1,Minor
+MDL-62343,"Add a link from ""Policies and agreements"" page to the Privacy officer contact form","Add a link that will allow the user to contact the data protection officer from the ""Policies and agreements"" user's profile page, instead of displaying only a message.",31,5/7/2018,12/20/18,227,Improvement,8,Minor
+MDL-62357,enrol_cohort to export/delete groups,enrol_cohort privacy provider should also export and delete the group memberships it is responsible for.,9,5/9/2018,5/16/2018,7,Improvement,6,Minor
+MDL-62373,Confusing contact DPO modal window,"Because of the way the contact DPO modal window is laid out, the text reads 'Reply to Message', which is very confusing for a user who has just clicked the link 'Contact Data Protection Officer'.
+
+I'm wondering why the user's email address is shown at the top, and whether it could be removed?
+
+Other possibilities would be to add some space between the email address and the text box and move the labels 'Reply to' and 'Message' closer to the email address and text box.
+
+!contact dpo modal.png!",10,5/10/2018,5/13/2018,3,Bug,5,Minor
+MDL-62383,Recordset not closed in \core_privacy\local\request\contextlist::add_from_sql(),The $contexts recordset is not being closed after processing.,3,5/10/2018,5/13/2018,3,Bug,4,Minor
+MDL-62384,Performance fixes for some providers,"We've discovered some issues due to joins which don't scale well with large numbers of records.
+
+The one which we discovered this with is assign and it's because the query planner in some engines doesn't deal well with joins where the filter is only in the WHERE (when it should be on the JOIN).
+
+Thankfully this only effects providers, and only those which do complex joins, and thankfully these are mostly extremely well unit tested now.",9,5/10/2018,5/13/2018,3,Improvement,4,Blocker
+MDL-62388,Sensitive personal data processing reasons can not be removed once added,There must be a !empty thing around that should probably be refined.,9,5/11/2018,5/13/2018,2,Bug,5,Major
+MDL-62391,Add information on requests details and table about who made the data request,"It would be useful to show who's created the data request, especially when the request was made by a user on behalf of another user (e.g. parent, DPO).",19,5/11/2018,6/22/2018,42,Bug,8,Minor
+MDL-62399,"Export files that ""belong"" to user in different file areas based on userid field in files table","Came up during testing of MDL-61976 for files uploaded to mod_wiki but it can also be present in other areas. 
+Files table stores userid which is not displayed anywhere (only ""Author"" text field is displayed and only when managing files in this area). We do not export these files based on userid
+
+There are no methods in files api or privacy api that would retrieve files by userid
+
+Example of scenario:
+- I, as a teacher, edited course summary and embedded files
+- these files have my userid in the database
+- the text of the course summary does not have my userid and is not exported as part of my data
+- as a result these files are never exported to me
+
+same with activity descriptions, question texts, feedback questions, and all other places where users (usually teachers) embed files into content that is not owned by them
+
+wiki:
+- there is a capability to ""Manage wiki files"" directly
+- I can upload files directly to collaborative wiki without having any revisions to the page
+- wiki will not show these files as belonging to me or authored by me
+- wiki will not be exported to me because it does not have my revisions (currently)
+- tester expects that the files I uploaded will be exported
+
+In 99% cases these files should not be deleted though",0,5/11/2018,6/7/2018,27,Bug,1,Minor
+MDL-62414,User selector should be only shown for user's children when making personal data requests (mydatarequests.php),"When a DPO is creating personal data requests (in mydatarequests.php), the user selector should only show users that the DPO is a parent of.",7,5/12/2018,5/16/2018,4,Bug,5,Minor
+MDL-62418,Consent page hasn't blocks with Clean theme,"[~stronk7] has discovered it while reviewing the ""Agree on behalf of another user as a manager, single policy, javascript on"" behat test (which is failingÂ because of thisÂ with the *clean* theme).
+
+*Steps to reproduce (with CLEAN theme):*
+# Login as admin.
+# Go to ""Site administration / Users / Privacy and policies / Policy settings""
+# Set the site policy handler to ""Policy (tool_policy).
+# Access to ""Site administration / Users / Privacy and policies / Manage policies"".
+# Create and enable one policy.
+# Edit the manager role andÂ allow the ""tool/policy:acceptbehalf"" capability.Â 
+# Logout.
+# Login as manager.
+# Read the policy text and click over Next.
+
+*Expected result:*
+
+The consent page should be displayed with the navigation blocks.
+
+*Current result:*
+
+The consent page is displayed without lateral blocks.",15,5/14/2018,5/16/2018,2,Bug,7,Minor
+MDL-62420,Random fail in enrol_lti_privacy_provider_testcase,"Ordering issue in enrol_lti_privacy_provider_testcase:
+
+{code}
+There was 1 failure:
+
+1) enrol_lti_privacy_provider_testcase::test_get_contexts_for_userid
+Failed asserting that 167002 matches expected 167000.
+
+/Users/Shared/Jenkins/Home/git_repositories/master/enrol/lti/tests/privacy_provider_test.php:87
+/Users/Shared/Jenkins/Home/git_repositories/master/lib/phpunit/classes/advanced_testcase.php:80
+
+{code}",6,5/14/2018,5/16/2018,2,Bug,5,Minor
+MDL-62424,role_sortorder missing from core_role provider,Not mentioned in metadata. Probably no need to export.,1,5/14/2018,5/14/2018,0,Bug,1,Minor
+MDL-62425,Implement core provider,"One area which we've missed is {{core}} - as in, {{lib/classes}}.
+
+We need to:
+* include this in the list of components returned in {{privacy\classes\manager.php::get_component_list}}
+* update the plugin registry to use this
+* implement the provider
+
+Tables to include:
+* {{config_log}}
+* {{upgrade_log}}
+* {{task_adhoc}}
+* {{events_queue}}",11,5/14/2018,5/16/2018,2,Bug,5,Minor
+MDL-62426,enrol_flatfile implements wrong provider,"It has the {{enrol_flatfile}} DB table
+
+
+
+I ran the enrolment flatfile scheduled task, and confirmed that indeed the entry persists in the table beyond the run time of the task. I'd expect to allow for future enrolments to be triggered. You need a future date for this to occur.
+
+If there's any data sitting in the table after a cron run completes, then we should be reporting this as it's more than just temp data in such cases.",13,5/14/2018,5/17/2018,3,Bug,4,Minor
+MDL-62427,mod_forum implementation does not check that the coursemodule matches.,"If the forum is removed between {code}
+PHP Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 760
+
+Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 760
+PHP Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 761
+
+Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 761
+PHP Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 762
+
+Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 762
+PHP Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 769
+
+Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 769
+PHP Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 777
+
+Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 777
+PHP Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 781
+
+Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 781
+PHP Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 782
+
+Notice: Trying to get property of non-object in /home/marina/repositories/int_master/moodle/mod/forum/classes/privacy/provider.php on line 782
+{code}",4,5/14/2018,5/15/2018,1,Bug,4,Minor
+MDL-62430,Some plugins do not check that context in delete_data_for_all_users_in_context() is correct context for them,"Method delete_data_for_all_users_in_context() from ALL providers is called when context expires. Some plugins have insufficient checks on contextlevel and some modules do not check that this is a module of the given type
+
+*original description:*
+
+I found two problems with LTI module:
+1. same as MDL-62427 has in forums - delete functions do not check that module type is 'lti' . You can expire old chat module and accidentally delete recent graded lti
+2. system context is added for all users and the manager always reports that there is something for lti module even when user definitely does not have anything
+
+So far we have -
+
+# mod_lti
+# mod_choice
+# mod_assign export_user_data() and delete_data_for_user()
+# mod_feedback export_user_data()
+# mod_glossary export_user_data(), both delete functions
+# mod_lesson export_user_data() partially
+# mod_quiz - doesn't skip if module not found in delete_data_for_user - will cause php exception. Also doesn't check contextlevel
+# mod_scorm export_user_data()
+# mod_survey doesn't skip in delete_data_for_all_users_in_context(), not a big deal
+# mod_wiki export_user_data()
+# mod_workshop export_user_data()
+
+The following modules are ok:
+Book (null), chat, data, folder (null), forum (MDL-62427), imscp (null), label (null), page (null), resource (null), url (null)",18,5/14/2018,5/16/2018,2,Bug,5,Blocker
+MDL-62433,Add missing tool_policy_versions to the privacy provider,Pending declareÂ tool_policy_versions table (and export/delete if needed).,27,5/14/2018,5/17/2018,3,Bug,8,Minor
+MDL-62438,Privacy: when setting retention period lang strings are set to lower case,The retention period can be set to year/month/days. The strings for 'month' and 'days' are set to lower cases.,0,5/15/2018,6/7/2018,23,Bug,1,Minor
+MDL-62442,Revisit block deletion for user contexts,"Eloy has pointed out that:
+# we currently do not delete blocks within a user context; and
+# we should consider deleting the block instances when they are in a user context -- their existence could be considered user data.",1,5/15/2018,5/17/18,2,Bug,2,Minor
+MDL-62445,tool_privacy: export request email comes from user without a name,"I noticed the error in the cron:
+{code}
+Notice: Undefined property: stdClass::$maildisplay in /home/marina/repositories/mdk_master/moodle/lib/moodlelib.php on line 6091
+
+Notice: Undefined property: stdClass::$maildisplay in /home/marina/repositories/mdk_master/moodle/lib/moodlelib.php on line 6092
+{code}
+Also the emails to DPO come from user without a name. 
+This happens because we pass exported user object to send_message() instead of a db record from 'users' table (or userid)",9,5/15/2018,5/17/2018,2,Bug,5,Minor
+MDL-62446,Glossary module can leave orphan records behind,"When deleting the data for all users in the privacy provider, the categories and aliases for the entries won't be deleted. The _foreach_ will loop over an empty list, thus leaving the records behind.
+
+{noformat}
+// Simplified code from line 250 onwards.
+$DB->delete_records('glossary_entries', ['glossaryid' => $instanceid]);
+...
+$entries = $DB->get_records('glossary_entries', ['glossaryid' => $instanceid]);
+foreach ($entries as $entry) {
+$DB->delete_records('glossary_entries_categories', ['entryid' => $entry->id]);
+$DB->delete_records('glossary_alias', ['entryid' => $entry->id]);
+}
+{noformat}
+
+It seems that the tests do not check the deletion of those related records.
+
+Also to consider: using _get_in_or_equal_ instead of _foreach_.",13,5/15/2018,6/15/2018,31,Bug,7,Minor
+MDL-62456,The mod_lti privacy provider should link external,"Shouldn't mod_lti define a link_external_location in get_metadata for the user info it sends on LTI launch? In particular, see lti_build_request function.",7,5/16/2018,5/17/2018,1,Bug,4,Minor
+MDL-62460,User ID being displayed when data request creation for others fails validation,"To reproduce:
+# Login as admin/DPO
+# Go to ""{{Site administration / Users / Privacy and policies / Data requests}}""
+# Create a data request for s1.
+# Try to create another data request for s1.
+# *What happens:* Validation fails as expected, but the displayed selected option in the autocomplete element becomes the user's ID instead of the name and email.",15,5/16/2018,6/15/2018,30,Bug,6,Minor
+MDL-62463,Glossary data privacy export isnt correctly matching glossary modules,The query used by mod_glossary' export_user_data func is not correctly limiting its context to glossaries - its simply matching on the cm.id = context.instanceid - this means it ends up joining on anything with a matching instance id. It also doesnt match the glossary to the correct cm record.,11,5/16/2018,5/17/2018,1,Bug,6,Blocker
+MDL-62479,Add filtering to the Plugin privacy compliance registry,"At the moment the privacy compliance registry is serving an important function in being part of the report which shows the user data that is stored in Moodle and the reason for its storage.
+
+That being said, it would be nice if we could filter the page to show which components are not compliant and need attention.",8,5/17/2018,5/21/19,369,Improvement,4,Minor
+MDL-62491,Privacy Data Request Export Format,"The Export format is in the moment JSON. JSON is fine for data transportability but on the human readability aspect its a mess for nomal user.
+
+My suggestion is to createÂ  an additional format html or pdf from json. This should include some basic information about the structure and type of information.
+
+Â 
+
+""User needs that the data export is usable by a human - so human readable - with an html index and some way of displaying index and content in a webpage.""",35,5/18/2018,10/11/2018,146,Improvement,10,Major
+MDL-62502,Add icons to policy aspects,"Art 12 GDPR paragraph 5 suggests to use standardised icons for several aspects from policies as described in Art 13ff. Up to now I'ven't seen any standardized icons. There are some ideas that EU commission or data protection board will suggest such icons in the near future. It would be nice that such icons can be added to the policy texts.
+
+The icons should be visible in summary and full text.",0,5/18/2018,6/7/2018,20,Improvement,1,Minor
+MDL-62504,GDPR Data Requests page needs order by date,"Hello,
+
+admin/tool/dataprivacy/datarequests.php for Data Proection Officer is a mess, requests should be in date order (newest first/top part of the page) at the moment they seem to be in order they have been made by.Â 
+
+Tested on Moodle 3.3.6 andÂ Data privacy, tool_dataprivacy 33.6.0 (2017051513)
+
+Â 
+
+Â 
+
+!mess.png|thumbnail!",3,5/19/2018,6/7/2018,19,Bug,3,Minor
+MDL-62516,Request to delete forum data for a user will delete files of all users,"The GDPR privacy provider for mod_forum will delete the files in the 'post' file area for *all* users when a request is made to delete data for a *single* user.
+
+At the end of the delete_data_for_user function, it simply calls:
+
+{code:php}
+$fs->delete_area_files($context->id, 'mod_forum', 'post');
+{code}
+
+This will delete files for all posts in that forum, not just ones from that user. It also doesn't appear to touch the 'attachment' file area at all, which it should.
+",10,5/21/2018,5/25/2018,4,Bug,5,Blocker
+MDL-62548,Need to scroll through privacy policy two times before accepting,"When the privacy policy is displayed to a user who has not yet accepted the policy is first displayed with a Next button at the end but no acceptance checkbox. So the user has to scrollÂ to the end of the policy find the Next button and click it.
+
+When the user clicks Next, the privacy policy is displayed again. Exactly the same except now there is an acceptance checkbox just above the Next button. So provided the checkbox is ticked before Next is clicked it works as expected.
+
+It seems a pity to make people go through the scroll to the bottom twice, so I wonder whether the checkbox should / could be displayed the first time the policy is displayed. That would mean just one scroll through the policy, check the box click next and it is done.
+
+We only have one privacy policy and acceptance is required for logged in users so this is the same policy each time. Also to be clear it is not a result of clicking the full text option.Â ",1,5/24/2018,4/22/19,333,Bug,2,Minor
+MDL-62552,Allow devolved selection of purposes and categories,"Many sites will have multiple DPOs who are responsible for a subset of the site and we should improve the privacy tool to better facilitate this.
+
+One solution I have been considering would be to create new capabilities for creating purposes, selecting a purpose + category, suggesting a purpose + category.
+
+If a user has permission to select a purpose and category then they can choose the configuration for anything they are involved with.
+
+If a user only has permission to suggest a purpose, then they can make suggestions but these must be confirmed by the DPO before becoming active.
+
+I suspect that these would be system level capabilities, and the user would therefore be able to make suggestions and selections at any point that they can already edit.",0,5/24/2018,6/7/2018,14,Improvement,1,Minor
+MDL-62554,Add ability to configure data registry to use module type defaults,"E.g. all mod_assign should have a purpose of X, rather than default to the context_module purpose.
+
+Â 
+
+The admin needs to be able to select category and purpose for activity / module types. This is needed on every type of course related activity independent of the others. As for example, assignments may need a different retention rule than forum posts or glossary comments.
+
+Create interface that enables category and purpose be set per feature rather than through the context part.
+
+Links:
+# Whiteboard sketches: https://projects.invisionapp.com/boards/RF3OZ7ZWCTP/
+# Mockup: https://projects.invisionapp.com/share/9MNIAQEX8Z4#/screens/314512878_Set_Defaults_2a",22,5/24/2018,9/21/2018,120,New Feature,7,Major
+MDL-62556,Export data in plugin registry in SAR,"Include the base data (purpose, category + retention in SAR export.",0,5/24/2018,6/7/2018,14,New Feature,1,Minor
+MDL-62559,Look at support for rolling deletion,"Requirements analysis required to:
+
+We need to consider how we could handle rolling deletion.
+
+This includes:
+* content such as messages; and
+* courses with no end date.
+
+We may also want to look at courses which have not had any 'activity' for a long period but have no end date (possibly using logs?).
+Possibly list all content by course start date?
+Logs can be an _indication_ but not a decision.",0,5/24/2018,6/7/2018,14,Task,1,Minor
+MDL-62560,Support different retention for different roles in a purpose,"Add support for different retention strategies for different user roles.
+
+In some institutions the content created by staff is considered to be 'owned' by the institution and not the individual.
+In these cases, there may need to be a longer retention policy applied for staff than to students.
+
+This issue seeks to extend the existing privacy API in order to add new data deletion strategies for _rolling_ deletion.
+
+This will be achieved by:
+* adding a new 'purpose override' such that a role can be allocated a different retention policy for any data retention purpose;
+* adding a new Provider interface to provide:
+** a function to fetch the list of users in a location in order to filter the users by role
+** a function to delete a set of users in a context
+* updating the current rolling expiry system to support this new functionality.",23,5/24/2018,10/24/2018,153,Task,5,Blocker
+MDL-62563,Add support for data deletion of existing deleted users,"Add support for data deletion of existing deleted users
+
+Admin needs to be able to select deleted users (from the existing user management interface) when selecting to do a privacy delete.
+
+Admin needs to be able to bulk select (via same multi-user select as bulk user actions) or a CSV upload to enable a data deletion of users. This should work on live users and ""deleted"" ones.",20,5/24/2018,11/7/2018,167,Task,8,Major
+MDL-62564,Improve bulk deletion,"Improve the bulk deletion process.
+
+""Admin needs to be able to bulk select (via same multi-user select as bulk user actions) or a CSV upload to enable a data deletion of users. This should work on live users and ""deleted"" ones.""
+
+Investigation",47,5/24/2018,11/11/2018,171,Improvement,7,Major
+MDL-62573,Web services can't be called after a major policy change,"As discovered and reported by [~abias] in the dev chat https://moodle.org/local/chatlogs/index.php?conversationid=21998#c641258
+
+{code}
+1. I login to moodle.org
+2. I agree to the site policy
+3. I publish a new version of a plugin on moodle.org/plugins
+4. The publication wizard tells me: ""Error: AMOS threw exception moodle_exception: Site policy not agreed: Click here to open the site policy.""
+{code}
+
+[~marina] correctly diagnosed this as a problem with the account on lang.moodle.org that represents the Plugins directory as a remote WS client.
+
+I remember we talked about WS accounts during the tool_policy development but I guess it's one of those things we missed at the end. I think the solution is not to reset policyagreed to 0 for accounts with auth set to WS.",0,5/25/2018,7/26/18,62,Bug,1,Minor
+MDL-62574,Deleting user data from block_html with the Privacy API crashes (at least with the Privacy API test utility),"As requested by [~dobedobedoh] in the Dev Chat, I am reporting a problem with deleting user data from block_html with the Privacy API.
+
+Steps to reproduce:
+
+* Login as student
+* Add a HTML block instance to your dashboard and configure this block instance with some text content
+
+* Open a SSH console
+* Pick the ""Test of deleting user data"" utility from https://docs.moodle.org/dev/Privacy_API/Utilities and store it as deletiontest.php
+* Run deletiontest.php with the student which you have used at the beginning of this test
+
+Expected result:
+* The script finishes and the student's data is deleted
+
+Actual result:
+* The script crashes with a database exception
+{code}
+Entfernen bestÃ¤tigter 19 Kontexte (Freitag, 25. Mai 2018, 12:18) ausfÃ¼hren
+mod_assign wird verarbeitet (1/19) (Freitag, 25. Mai 2018, 12:18)
+mod_forum wird verarbeitet (2/19) (Freitag, 25. Mai 2018, 12:18)
+mod_lti wird verarbeitet (3/19) (Freitag, 25. Mai 2018, 12:18)
+mod_moodleoverflow wird verarbeitet (4/19) (Freitag, 25. Mai 2018, 12:18)
+block_html wird verarbeitet (5/19) (Freitag, 25. Mai 2018, 12:18)
+Default exception handler: Datensatz kann nicht in der Datenbanktabelle context gefunden werden Debug: SELECT * FROM {context} WHERE id = ?
+[array (
+0 => '228064',
+)]
+Error code: invalidrecord
+* line 1546 of /lib/dml/moodle_database.php: dml_missing_record_exception thrown
+* line 1522 of /lib/dml/moodle_database.php: call to moodle_database->get_record_select()
+* line 5060 of /lib/accesslib.php: call to moodle_database->get_record()
+* line 117 of /privacy/classes/local/request/contextlist_base.php: call to context::instance_by_id()
+* line 288 of /privacy/classes/local/request/helper.php: call to core_privacy\local\request\contextlist_base->current()
+* line 108 of /privacy/classes/local/request/helper.php: call to core_privacy\local\request\helper::delete_data_for_user_in_course_module()
+* line 378 of /privacy/classes/manager.php: call to core_privacy\local\request\helper::delete_data_for_user()
+* line 70 of /deletiontest.php: call to core_privacy\manager->delete_data_for_user()
+
+!!! Datensatz kann nicht in der Datenbanktabelle context gefunden werden !!!
+!! SELECT * FROM {context} WHERE id = ?
+[array (
+0 =&gt; '228064',
+)]
+Error code: invalidrecord !!
+!! Stack trace: * line 1546 of /lib/dml/moodle_database.php: dml_missing_record_exception thrown
+* line 1522 of /lib/dml/moodle_database.php: call to moodle_database-&gt;get_record_select()
+* line 5060 of /lib/accesslib.php: call to moodle_database-&gt;get_record()
+* line 117 of /privacy/classes/local/request/contextlist_base.php: call to context::instance_by_id()
+* line 288 of /privacy/classes/local/request/helper.php: call to core_privacy\local\request\contextlist_base-&gt;current()
+* line 108 of /privacy/classes/local/request/helper.php: call to core_privacy\local\request\helper::delete_data_for_user_in_course_module()
+* line 378 of /privacy/classes/manager.php: call to core_privacy\local\request\helper::delete_data_for_user()
+* line 70 of /deletiontest.php: call to core_privacy\manager-&gt;delete_data_for_user()
+!!
+
+{code}",13,5/26/2018,6/15/2018,20,Bug,7,Major
+MDL-62588,enrol_paypal error when calling enrol_paypal\privacy\provider::get_contexts_for_userid,"This is caused because of a missing upgrade step. 
+commit 24df3e1a064056d50115de6cd6161585ec7313bd seems to be the one.",15,5/28/2018,6/22/2018,25,Bug,6,Minor
+MDL-62589,Unable to reset submitted unapproved SARs after plugins are updated / installed,"Use case:
+
+* A user submits a new SAR (e.g. to export all their data)
+* Admin only after that installs a new plugin, or updates existing plugins (e.g. so they have the privacy API implemented)
+* We now should be able to reset the submitted unapproved SARs so that contexts are re-gathered.",17,5/29/2018,11/11/2018,166,Bug,5,Blocker
+MDL-62597,Data requests: Request date column should include time,"Request date column should also show requested time
+Currently it only show requested date that make user confuse",13,5/30/2018,6/22/2018,23,Bug,7,Minor
+MDL-62602,Data requests stuck on pre-processing,Recent data requests on moodle.org seem to be stuck on pre-processing (2 days so far).,5,5/31/2018,6/20/2018,20,Bug,3,Minor
+MDL-62751,Data request exception - plugin tool_log,"As reported to the privacy officer on moodle.org:
+
+{code}
+Exception occured while calling
+*tool_log\privacy\provider::export_user_data*.
+This means that plugin *tool_log* did not complete processing data. Below
+you can find exception information that can be passed to the plugin
+developer.
+
+Error reading from database
+
+#0 /var/www/vhosts/moodle.org/html/lib/dml/mysqli_native_moodle_database.php(1184):
+moodle_database->query_end(false)
+#1 /var/www/vhosts/moodle.org/html/lib/dml/moodle_database.php(1294):
+mysqli_native_moodle_database->get_recordset_sql('SELECT * FROM m...',
+Array, 0, 0)
+#2 /var/www/vhosts/moodle.org/html/admin/tool/log/classes/local/privacy/moodle_database_export_and_delete.php(80):
+moodle_database->get_recordset_select('moodleorg_archi...', '(userid =
+:user...', Array, 'contextid, time...')
+#3 /var/www/vhosts/moodle.org/html/lib/moodlelib.php(7764):
+logstore_database\privacy\provider::export_user_data(Object(core_privacy\local\request\approved_contextlist))
+#4 /var/www/vhosts/moodle.org/html/privacy/classes/manager.php(495):
+component_class_callback('logstore_databa...', 'export_user_dat...',
+Array)
+#5 /var/www/vhosts/moodle.org/html/privacy/classes/manager.php(479):
+core_privacy\manager::component_class_callback('logstore_databa...',
+'tool_log\\local\\...', 'export_user_dat...', Array)
+#6 /var/www/vhosts/moodle.org/html/admin/tool/log/classes/privacy/provider.php(107):
+core_privacy\manager::plugintype_class_callback('logstore',
+'tool_log\\local\\...', 'export_user_dat...', Array)
+#7 /var/www/vhosts/moodle.org/html/admin/tool/log/classes/privacy/provider.php(77):
+tool_log\privacy\provider::call_subplugins_method_with_args('export_user_dat...',
+Array)
+#8 /var/www/vhosts/moodle.org/html/lib/moodlelib.php(7764):
+tool_log\privacy\provider::export_user_data(Object(core_privacy\local\request\approved_contextlist))
+#9 /var/www/vhosts/moodle.org/html/privacy/classes/manager.php(495):
+component_class_callback('tool_log\\privac...', 'export_user_dat...',
+Array)
+#10 /var/www/vhosts/moodle.org/html/privacy/classes/manager.php(528):
+core_privacy\manager::component_class_callback('tool_log',
+'core_privacy\\lo...', 'export_user_dat...', Array)
+#11 /var/www/vhosts/moodle.org/html/privacy/classes/manager.php(298):
+core_privacy\manager->handled_component_class_callback('tool_log',
+'core_privacy\\lo...', 'export_user_dat...', Array)
+#12 /var/www/vhosts/moodle.org/html/admin/tool/dataprivacy/classes/task/process_data_request_task.php(93):
+core_privacy\manager->export_user_data(Object(core_privacy\local\request\contextlist_collection))
+#13 /var/www/vhosts/moodle.org/html/lib/cronlib.php(185):
+tool_dataprivacy\task\process_data_request_task->execute()
+#14 /var/www/vhosts/moodle.org/html/lib/cronlib.php(74):
+cron_run_inner_adhoc_task(Object(tool_dataprivacy\task\process_data_request_task))
+#15 /var/www/vhosts/moodle.org/html/admin/cli/cron.php(61): cron_run()
+#16 {main}
+{code}",2,6/20/2018,5/6/2020,686,Bug,3,Minor
+MDL-62755,Assignment cutoffdate and allowsubmissionfromdate are not exported,,9,6/20/2018,6/29/2018,9,Bug,6,Minor
+MDL-62768,Admin privacy tool pages have no breadcrumbs,"Enable the setting ""tool_dataprivacy | contactdataprotectionofficer"".
+
+Go to your profile page.
+
+Follow ""data requests"" link in the ""Privacy and policies"" section.
+
+Verify you see breadcrumb links under your user picture at the top of the page.
+
+Â ",15,6/21/2018,3/6/2020,624,Bug,7,Minor
+MDL-62843,Moodle is not clear on data retention when deleting a user,"When a site admin deletes a user, they are prompted with ""Are you absolutely sure you want to completely delete the user 'username', including their enrolments, activity and other user data?""
+
+However we know that there is in fact quite a lot of user data that Moodle does not delete - things like assignment uploads - which once the user is deleted, cannot be removed from the site without deleting the course (this is very impractical) etc.
+
+This is compounded by the fact that the user cannot request a tool_dataprivacy deletion after they are already deleted, so their data is ""lost to them, but kept by moodle"" forever.
+
+I believe this puts us in a bad situation with GDPR compliance.
+
+In a perfect world, I would like to see a checkbox or some way of asking the site admin if they want to permanently delete ALL user data at the time (like, on the same page) as they delete the user, on a per-user deletion basis (not a global setting that affects all user deletions).
+
+OR
+
+we need to very clearly state on the user deletion page that this method will leave the users data behind in the system, and very as specific as we can - and with instructions (from Moodle Docs link?) on how the site admin can remove this data post user deletion.
+
+",6,7/2/2018,2/13/19,226,Improvement,5,Minor
+MDL-62852,Display audience at the viewall.php page,Working onÂ MDL-62670 I've realised the audience is not displayed anywhere. It would be great to display it at leastÂ on the viewall.php page.,20,7/5/2018,7/27/2018,22,Improvement,8,Minor
+MDL-62904,Users can't find where to request account deletion,"The support emails for moodle.org and learn.moodle.net often receive messages from people wanting to delete their account but not finding where to request it in the UI.Â We created the following canned response:
+{quote}To request for your data to be deleted fromÂ [moodle.org|http://moodle.org/], please
+
+# Log in and go to your profileÂ [https://moodle.org/user/profile.php]
+# Click 'Data requests' in the Privacy and Policies section
+# Click the New request button
+# From the dropdown, select 'Delete all of my personal data'
+# Click the Save changes button.{quote}
+
+Rather than expecting users to go through all of the above steps, it would be good to simply provide them with a link on their profile page.",16,7/12/2018,10/27/2018,107,Improvement,8,Minor
+MDL-62948,tool_policy behat failure,"{code}
+....F----------------
+
+--- Failed steps:
+
+001 Scenario: Accept policy on login as guest # /var/www/html/admin/tool/policy/tests/behat/consent.feature:452
+When I press ""Log in as a guest"" # /var/www/html/admin/tool/policy/tests/behat/consent.feature:464
+WebDriver\Exception\UnknownError: unknown error: Element <input type=""submit"" value=""Log in as a guest""> is not clickable at point (265, 579). Other element would receive the click: <div class=""eupopup-head""></div>
+
+{code}
+
+The bottom floating footer covers the ""Login as guest"" button.",8,7/20/2018,7/27/2018,7,New Feature,4,Minor
+MDL-62996,Missing upgrade.php file on tool_dataprivacy may cause errors when upgrading from 3.3 or 3.4,"This issue is related to the tool_dataprivacy and was discovered while fixing the following issue atÂ the School demo: https://tracker.moodle.org/browse/MDLSITE-5502
+
+Sites with Moodle 3.3 or 3.4 and the version 3x.0.0 or 3x.1.0 of the tool_dataprivacy installedÂ won't have all the tables and fields created in the 3x.2.0 plugin version when they upgrade to 3.5. These tables and fields won't be created because the db/update.php file was removed when the plugin was moved to core:Â MDL-61899.",12,7/27/2018,8/11/2018,15,Bug,6,Major
+MDL-63011,Paypal enrolement data processing breaks GDPR,"Paypal enrolement seems to get information from Paypal about users address registered at paypal and paypment process used in paypal. All these information are not visible via interface.
+
+Storing this data even if they are inviisible breaks GDPR in some situtions.. Specially finance relevant data can be sensible special categories of data.
+
+If such data re not visible in Moodle and there is no need to use theme they shouldn't be stored in Moodle.",1,7/30/2018,7/31/2018,1,Improvement,2,Minor
+MDL-63109,User agreements page can't be interacted anymore once the consent modal gets closed,"To reproduce: 
+# Log in as admin
+# Go to Site administration / Users / Privacy and policies / Policy settings
+# Set the ""{{Site policy handler}} to tool_policy.
+# Save the changes.
+# Go to Site administration / Users / Privacy and policies / Manage policies
+# Create a site policy and make it active.
+# Back to the ""{{Policies and agreements}}"" page, agreements link for the site policy.
+# Tick one or more users and click on the ""{{Consent}}"" button at the bottom of the table.
+# When the modal shows up, click ""{{Cancel}}"" or click outside the modal to close it.
+# Click again on any of the checkboxes.
+# *Expected:* You can continue selecting/deselecting users.
+# *Actual:* The page freezes up and you can't do anything anymore unless you refresh the page.
+
+I thought at first that it could be a regression from MDL-60207. But since I can reproduce this as well even in 35, then the problem is most likely in the ""{{User agreements}}"" page.",11,8/11/2018,9/21/2018,41,Bug,6,Major
+MDL-63114,it should not be possible to close privacy policy information on frontpage by clicking the button in the right top corner,"When you visit a moodle, then there automaticaly is an overlaying box with information about privacy policy.
+
+I think that clicking at the button in the top right corner of the privacy policy for not logged in users means, that the user do ""not agree"". The box with the privacy policy hint should still be visible until the user clicks at the ""continue"" link to say that the user agrees",0,8/12/2018,9/13/18,32,Bug,1,Minor
+MDL-63167,Final deprecation of the gradingform_provider interface,"Follow through with the final deprecation of the gradingform_provider.
+# Delete the file grade/grading/classes/privacy/gradingform_provider.php
+# Remove deprecated functions from grade/grading/classes/privacy/gradingform_legacy_polyfill.php
+# Remove sections of code no longer needed in grade/grading/classes/privacy/provider.php
+# Update grade/grading/form/upgrade.txt with details about the final deprecation.",11,8/16/2018,7/4/2020,688,Bug,6,Minor
+MDL-63184,is_site_dpo() doesn't check for any capability and it seems it should,"1) Was looking for some changes when I realized that {{is_site_dpo()}}, used widely to decide about which operations are allowed for a dpo is simply calling to {{get_site_dpos()}}, that doesn't perform any capability check, just looks for roles based in config value.
+
+IMO, some capability should be checked, not sure if one, multiple, or maybe passed by param, but for sure we cannot decide permissions based solely on roles, capabilities are for that.
+
+2) Tangentially related to that, it's also the fact that, for 1st time in 15 years (since admins and caps were invented), we are specifically/exceptionally denying the access to something to admins, based in some exceptional logic, say ""admins can do everything but not tasks associated to POs"". I personally find this exception (any in general) bad for the system.
+
+I could agree that they could be warned about proper POs existing and preventing them about that but, still, they should continue doing everything. Of course, IMO. I know it was a decision but really it's killing the previous behavior for nothing. Should we start prohibiting them also to edit the gradebook or creating courses or enroling people or editing profiles? We don't do, why this case is so, so exceptional ?
+
+That is, surely only 1) is a real bug, but the 2) reflexion really makes me not happy. Cannot find a logic justification.
+
+Ciao :.)",13,8/20/2018,9/21/2018,32,Bug,5,Minor
+MDL-63295,Tool Policy changes are not stored in configuration setting report,"After activating tool_policy I made settings for policies. Later I made some changes. 
+In the report for administrational settings changes these changes are not reported .
+
+It seems that the settings in tool_policy are not logged.",13,8/20/2018,9/21/2018,32,Bug,3,Minor
+MDL-63313,Check Moodle core version in the Policies plugin prior and during upgrade,The Policies plugin was merged into the standard Moodle distribution in MDL-62800. So the versions 3.3.8 and 3.4.5 will be released with the plugin newly present. We want to warn the admins via the github (contrib) version of the plugin and eventually avoid the situation when the addon code would remain in recent 3.3 or 3.4 site. Only the core code should be present.,2,9/5/2018,9/7/2018,2,Task,4,Minor
+MDL-63495,Extend privacy API to support multi-user operations,"As part of MDL-62560 we need to support the following operations:
+# determining the list of users in a context
+# deleting multiple users within a single context",8,9/6/2018,9/7/2018,1,Sub-task,4,Minor
+MDL-63500,Add support for removal of context users - core_group and friends,"Add support to identify and remove users in a context for core_group, enrol_meta and enrol_cohort.",5,10/2/2018,10/12/2018,10,Sub-task,3,Minor
+MDL-63526,Improve the user data retention summary to show individual modules as belonging to activities.,The individual mod defaults are show after blocks and seem a bit disconnected. The display could be improved to show that these modules belong to activities.,3,10/2/2018,10/8/2018,6,Improvement,2,Minor
+MDL-63558,Add support for removal of context users - portfolios,Add support to identify and remove users in a context for portfolio_*.,1,10/4/2018,10/15/18,11,Sub-task,3,Minor
+MDL-63564,Add support for removal of context users - core_question + mod_quiz,Add support to identify and remove users in a context for core_question and mod_quiz.,3,10/5/2018,10/15/2018,10,Sub-task,4,Minor
+MDL-63566,Display core_userlist validation in data registry,"Display whether a component implements the core_userlist provider when it should.
+
+I think this needs to be defined for any component implementing the {{core_user_data_provider}} but we need to confirm that is correct.",12,10/6/2018,11/7/2018,32,Sub-task,6,Minor
+MDL-63586,Add support for removal of context users - profilefield_menu,Add support to identify and remove users in a context for profilefield_menu.,11,10/8/2018,11/3/2018,26,Sub-task,3,Minor
+MDL-63588,Add support for removal of context users - profilefield_textarea,Add support to identify and remove users in a context for profilefield_textarea.,2,10/9/2018,10/15/2018,6,Sub-task,3,Minor
+MDL-63595,Add support for removal of context users - mod_quiz,Add support to identify and remove users in a context for mod_quiz.,2,10/9/2018,10/15/2018,6,Sub-task,1,Minor
+MDL-63626,mod_quiz\privacy\provider::get_contexts_for_userid error when no quiz attempt,mod_quiz\privacy\provider::get_contexts_for_userid does not work well when there is no attempt in the quiz at all.,26,10/11/2018,10/27/2018,16,Bug,5,Minor
+MDL-63632,Forum provider not deleting data for users who did not create the discussion,"I've discovered that we do not correctly delete some data if a user did not post the discussion.
+
+Although we have copious unit tests, we don't test this particular case yet (grr).",6,10/11/2018,10/31/2018,20,Bug,4,Blocker
+MDL-63634,Add support for removal of context users - enrol_paypal,Add support to identify and remove users in a context for enrol_paypal.,17,10/12/2018,10/20/2018,8,Sub-task,6,Minor
+MDL-63639,Add support for removal of context users - core_fileconverter,Add support to identify and remove users in a context for core_fileconverter.,18,10/12/2018,10/31/2018,19,Sub-task,3,Minor
+MDL-63640,Add support for removal of context users - core_files,Add support to identify and remove users in a context for core_files.,9,10/12/2018,10/24/2018,12,Sub-task,5,Minor
+MDL-63644,Erroneous query in enrol_paypal\privacy\provider::get_contexts_for_userid,"The sql query inÂ enrol_paypal\privacy\provider::get_contexts_for_userid is not correct.
+
+The LEFT JOIN in the query should change to INNER JOIN and the AND in the join condition should change to OR.",2,10/12/2018,10/16/2018,4,Bug,1,Minor
+MDL-63665,Add support for removal of context users - mod_choice,Add support to identify and remove users in a context for mod_choice.,9,10/16/2018,10/31/2018,15,Sub-task,4,Minor
+MDL-63677,Random redirection during policy agreement and signup,"We were finding that when multiple users were attempting to create an account with the new tool_policy plugin enabled, they would be bounced, seemingly at random, back to the front page or initial policy page and often unable to create a new account.
+
+You can test this by having two users try to create accounts via email authentication with policies enabled. User 1 goes through the policy agreement process, consents, and waits on the signup page. User 2 then goes through to the consent page (the page with the checkboxes to consent to all the policies). User 1 then submits their signup page. When User 2 clicks next, they will be taken back to the front page instead of the signup page.
+
+It looks like the presignup cache is being being cleared on the 'createduser' event - any user. This removes the policy viewed/accepted states for EVERY session, causing the redirection.
+
+I have a PR at [https://github.com/saylordotorg/moodle/pull/1] that appears to fix the issue - multiple users are able to sign up and the full policy flow is restored if a user creates an account (ignores the confirmation email and doesn't log in) and tries to create a new account again during the same session.",20,10/17/2018,1/18/2019,93,Bug,7,Minor
+MDL-63678,Add support for removal of context users - ltiservice_gradebookservices,"Add support to identify and remove users in a context for ltiservice_gradebookservices.
+Â ",8,10/17/2018,10/27/2018,10,Sub-task,5,Minor
+MDL-63689,Add support for removal of context users - mod_workshop,Add support to identify and remove users in a context for mod_workshop.,15,10/17/2018,11/7/2018,21,Sub-task,4,Minor
+MDL-63700,Add support for removal of context users - core_analytics,Add support to identify and remove users in a context for core_analytics.,10,10/18/2018,11/7/2018,20,Sub-task,4,Minor
+MDL-63703,Add support for removal of context users - core_role,Add support to identify and remove users in a context for core_role.,11,10/18/2018,11/3/2018,16,Sub-task,5,Minor
+MDL-63713,Add support for removal of context users - core,Add support to identify and remove users in a context for core.,10,10/19/2018,10/24/2018,5,Sub-task,5,Minor
+MDL-63726,"Make ""Data retention summary"" link in the footer removable","Dear all,
+
+MDL-62558 has introduced a link which is called ""Data retention summary"" (id=""dataretentionsummary"", pointing to /admin/tool/dataprivacy/summary.php) in the users profile (/user/profile.php) and in the footer section of our whole Moodle site.
+
+It would be a great improvement to MDL-62558 , if the administrator could choose, if this link is shown or hidden in any place.
+
+We currently do not plan to use this feature, as we do not have any plans to define our periods within Moodle. As this link currently can not be hidden in any good way, our users are confronted with lacking information in popular places. This creates a confusing experience for them.
+
+A simple checkbox, to show or hide these links in the users profile and the footer would solve our problem. Thanks in advance for considering it.",20,10/22/2018,11/3/2018,12,Bug,8,Minor
+MDL-63782,When attempting to sign up for an account you are returned to the age and location verification page,"As found on moodle.org,
+# Click the create new account button
+# Complete the age and location verification
+# Agree to all policies
+# Complete the new account form and click the 'Create my new account' button
+
+Expected result: A message is displayed saying that you have been sent an account confirmation email.
+
+Actual result: You are returned to the age and location verification page.
+
+Note: Although I have been returned to the age and location verification page lots of times, I have sometimes got through to the page saying that you have been sent an account confirmation email. Thus, it is not possible to reliably reproduce the issue.",0,10/26/2018,12/7/2018,42,Bug,1,Minor
+MDL-63865,Add missing unit tests for tool_dataprivacy provider,The tool_dataprivacy provider is not unit tested. Relevant unit tests for all provider methods need to be written.,12,11/5/2018,3/27/2020,508,Bug,5,Minor
+MDL-63867,initiate_data_request_task fails if tool unconfigured,"This is a must fix for minor releases.
+{code}
+Adhoc task failed: tool_dataprivacy\task\initiate_data_request_task,Coding error detected, it must be fixed by a programmer: Something went wrong, system defaults should be set and we should already have a value.
+Backtrace:
+* line 273 of /admin/tool/dataprivacy/classes/expired_contexts_manager.php: call to tool_dataprivacy\data_registry::get_effective_contextlevel_value()
+* line 211 of /admin/tool/dataprivacy/classes/expired_contexts_manager.php: call to tool_dataprivacy\expired_contexts_manager::get_nested_expiry_info_from_sql()
+* line 819 of /admin/tool/dataprivacy/classes/expired_contexts_manager.php: call to tool_dataprivacy\expired_contexts_manager::get_nested_expiry_info_for_courses()
+* line 809 of /admin/tool/dataprivacy/classes/expired_contexts_manager.php: call to tool_dataprivacy\expired_contexts_manager::is_course_context_expired()
+* line 872 of /admin/tool/dataprivacy/classes/expired_contexts_manager.php: call to tool_dataprivacy\expired_contexts_manager::is_course_expired()
+* line 897 of /admin/tool/dataprivacy/classes/expired_contexts_manager.php: call to tool_dataprivacy\expired_contexts_manager::are_user_context_dependencies_expired()
+* line 1004 of /admin/tool/dataprivacy/classes/api.php: call to tool_dataprivacy\expired_contexts_manager::is_context_expired_or_unprotected_for_user()
+* line 103 of /admin/tool/dataprivacy/classes/task/initiate_data_request_task.php: call to tool_dataprivacy\api::add_request_contexts_with_status()
+* line 185 of /lib/cronlib.php: call to tool_dataprivacy\task\initiate_data_request_task->execute()
+* line 113 of /admin/tool/task/cli/adhoc_task.php: call to cron_run_inner_adhoc_task()
+{code}
+
+The easiest solution is to add a new ""{{is_system_purpose_defined}}"" function. Essentially, the inverse of:
+{code}
+$classname = \context_helper::get_class_for_level($record->contextlevel);
+list($purposevar, $categoryvar) = data_registry::var_names_from_context($classname);
+set_config($purposevar, $record->purposeid, 'tool_dataprivacy');
+set_config($categoryvar, $record->categoryid, 'tool_dataprivacy');
+{code}
+
+Following that we call the function in {{expired_contexts_manager::is_context_expired_or_unprotected_for_user()}} and have the function return true if the site is not configured (equivalent to meaning allow deletion of anything if GDPR is not configured).
+
+We may need to hook into other places too.
+
+To reproduce this issue, setup a new site, request a user deletion, and run the adhoc task.",27,11/5/2018,11/11/2018,6,Bug,6,Blocker
+MDL-63897,Remove preprocessing stage from GDPR operations,"We originally planned to allow for an interface to approve and reject individual contexts. This necessitated splitting the request into a Pre-processing stage, and a processing stage, with the pre-processing stage locating everywhere that the user holds data.
+
+
+This interface never materialised, and now that we have a combination of per-purpose protection, and per-role deletion, this is arguably no longer required. Any rejection of a context for a specific user should be done via a per-role override to the context purpose instead.
+
+As such, we should remove the preprocessing stage. This becomes especially important given MDL-62563, and MDL-62564, where we will see the creation of automated requests.
+
+This pre-processing stage has a number of existing issues, namely it allows for data to become stale between addition and removal.
+
+Removing this stage and jumping straight to the awaiting approval state, and then fetching the list of contexts immediately before they are handled reduces complexity, and the possibility for this stale state. This also alleviates the need for most (but not all) of MDL-62589.",15,11/7/2018,11/11/2018,4,Improvement,6,Blocker
+MDL-63919,Disable notifications for automated SARs,"As per Chris Clark's comment in MDL-62563, we should try and rate limit these somehow.
+
+I'd recommend we not send any notification for automated SARs, though this will mean that users who are bulk deleted are also not notified about. Still, better than spamming POs/admins.",28,11/8/2018,11/11/2018,3,Bug,8,Blocker
+MDL-63925,Fix URL in Moodle logo of data export HTML file,"The logo links to ""https://www.moodle.org"", when it should link to ""https://moodle.org"". Since the www subdomain is not supposed to be used, its SSL is improperly configured, so anyone clicking the link would receive a security warning page.",9,11/8/2018,11/13/2018,5,Bug,6,Minor
+MDL-63926,Add support for removal of context users - block_recentlyaccesseditems,Add support to identify and remove users in a context for block_recentlyaccesseditems. Also create unit tests to cover all privacy provider methods.,10,11/8/2018,11/17/2018,9,Task,5,Minor
+MDL-63942,Disable delete existing users task by default,"I think we're going to have to disable the {{tool_dataprivacy\task\delete_existing_deleted_users}} by default and, instead, document how to use it (either via Run Now, or setup and run).
+
+We're seeing people hitting issues because of the initial pre-processing.",8,11/9/2018,11/11/2018,2,Bug,5,Blocker
+MDL-63946,Incorrect filename in plagiarism provider,"{{plagiarism/classes/privacy/plagiarims_user_provider.php}}
+Typo in plagiarism",7,11/9/2018,11/11/2018,2,Bug,5,Minor
+MDL-63969,Add support for removal of context users - core_favourites,"Add support to identify and remove users in a context for core_favourites, as well as export relevant data. Also implement these in any providers that require them.",16,11/12/2018,11/20/2018,8,Task,6,Minor
+MDL-64062,Move favourite conversations from the system context,We should move the favourite conversations from the system context to the user or the conversation context (I can see some benefits for each case).,2,11/16/2018,11/19/2018,3,Bug,2,Minor
+MDL-64205,Invalid user error shows on Data requests page,"This has been originally reported by [~marycooch] at her own site and I was able to reproduce it.
+
+Say a user self-registers but does not confirm the account. Eventually the task {{delete_unconfirmed_users_task}} gets executed and an automatic request to delete the user's data is created (via the observer introduced in MDL-62564), but the user's account is immediately deleted. So we end up with a record in the {{tool_dataprivacy_request}} table pointing to a non-existing userid.
+
+I believe we should not delete the actual user record - even for unconfirmed users - same as we do not deleted them in the {{delete_incomplete_users_task}}",20,11/25/2018,11/28/2018,3,Bug,5,Critical
+MDL-64221,Check and update Privacy Provider queries to improve performance,We need to check all of our privacy providers calls to add_from_sql to reduce their complexity. Many of these have a large number of LEFT JOINs when we should (in hindsight) have created them with a large number of queries with INNER JOINs.,0,11/27/2018,11/30/18,3,Epic,1,Minor
+MDL-64323,GDPR: New request form user search - not using configured fields,"When creating a GDPR request on behalf of a user, you need to search for them in the user field.
+
+The AJAX selector that searches for a user does not use the appropriate logic. It always searches the names (first/last), email, and username. 
+
+It never searches the extra fields that are specified in admin settings (showuseridentity).
+
+This code is in admin/tool/dataprivacy/classes/external.php, function get_users.
+
+Currently it uses the datalib get_users function, which behaves incorrectly (as above) - it should probably be deprecated really. For example, in sites that don't support email address or username for searching, it probably shouldn't be searched.
+
+I searched the code for examples of how to do this correctly, I believe it is roughly:
+
+$extrafields = get_extra_user_fields($context);
+list($sql, $params) = users_search_sql($query, 'u', false, $extrafields, $excludedusers);
+
+(And then do the SQL query.)
+
+In addition to this, the display of the user name popup (after you search and it finds somebody) which can be found in templates/form-user-selector-suggestion.mustache is not really appropriate either - this should:
+
+(a) display the user's name 
+and
+(b) also show - probably as a comma separated list - any fields that are returned by the get_extra_user_fields($context) function.
+
+Currently it shows like 'Full Name (email)'. So it should show:
+
+- If there's nothing from get_extra_user_fields, just 'Full name'
+- If there is a response, then those fields, in that order, comma-separated, e.g. 'Full Name (email, idnumber, department)'
+
+A particular use case for this is to search for somebody by their student number (idnumber). This is not possible in the current system. Not very helpful for our admin staff. :) But anyway, it ought to support the standard admin settings in this area.
+
+So to summarise all this into what needs doing (my opinion):
+
+1. The search should use all the fields selected in the showuseridentify admin setting, in addition to names, if the current user has moodle/site:viewuseridentity permission. If they do not have that permission then it should only search names.
+
+2. When displaying the popup of the selected user, this should also show all the fields selected in showuseridentity, in addition to names, if the current user has moodle/site:viewuseridentity permission. If they do not have that permission then it should only show names.
+
+3. There should be a PHPunit test of the web service to test the search behaviour. This should cover (may be one or several tests): 
+* searching by name, as present (finds the user)
+* searching by a field configured in admin settings when user has viewuseridentity permission (finds the user)
+* searching by a field when user doesn't have viewuseridentity permission (doesn't find the user)
+* searching for a different field that is not configured in admin settings, when user does have permission (doesn't find the user)
+
+4. There should be a Behat test of the overall interface to test the popup appearance. This should cover:
+* display when user does not have the viewuseridentity, name only
+* display when they do have it, include all fields selected in admin settings (and not other fields)
+
+",30,12/4/2018,1/25/2019,52,Improvement,5,Minor
+MDL-64446,GDPR Data deletion - Course deletion,"When I select a course in ""Data deletion"" and I delete it the course remain available also after the scheduled tasks were executed.
+If the course have the self enrollment active, users can enroll to the course and do activities also if all the contexts of the course results as deleted on DB (status 2 in mdl_tool_dataprivacy_ctxexpired).
+
+STEP TO REPRODUCE
+# Create a new course
+# Set auto enrollment active
+# Set start and end date (you can set also date in the past so you do not wait days)
+# If not created in data registry, create a purpose for the course (I created a purpose with 1 day retention for the site so the course inherit it)
+# Create some activities on the course
+# Do some activities as student on the course
+# Use ""Data deletion"" for delete the course
+# Run the privacy scheduled tasks
+
+At this point I expect that the course is not available any more but the course is still visile (without participants and with empty activities) and students can enroll and do activities on the course.
+
+Sorry for my bad English! :-)",1,12/19/2018,3/1/2019,72,Bug,2,Major
+MDL-64541,Data Export download Zip can't be opened by Windows,"A user downloads their data as part of the ""Export all of my data"" request.
+
+The Zip file downloads.Â  They double click to open it.Â Â 
+
+They get an error message:
+
+*{{Windows cannot open the folder.}}{{The Compressed (zipped) Folder 'location....zip' is invalid}}*
+
+{{So far I have tested this on Windows 7 and Windows 10 and got the same error message.}}
+
+{{The file does open in dedicated Zip software like 7-Zip.}}",1,1/9/2019,1/10/2019,1,Bug,2,Minor
+MDL-64627,Action-menu doesn't work on data request page. Solved.,"Hello,
+
+there is a problem on Data request page on Moodle 3.5.4. Actions-menu items do not display correctly at all, you cannot see them all. Tested with Clean and Boost themes.
+
+Tested with:Â 
+* Moodle 3.5.4
+* theme_boostÂ 2016102100
+* theme_clean ????
+
+Â 
+
+!gdpr_boost.png|thumbnail!!gdpr_clean.png|thumbnail!
+
+Â ",2,1/18/2019,1/21/2019,3,Bug,2,Minor
+MDL-64702,Badges does not include related data in a privacy export,"The following additional pieces of data were added to badges in 3.6, but the privacy API does not include any of them.
+
+Related badges, alignments, endorsements.
+
+Â 
+
+Â ",31,1/25/2019,5/1/2019,96,Bug,4,Minor
+MDL-64737,Exception occurred while calling editor_atto\privacy\provider::export_user_data,"This has been reported by [~marycooch] and [~tsala] as affecting the personal data requests on moodle community sites. We are receiving the following exception.
+
+{code}
+Exception occurred while calling editor_atto\privacy\provider::export_user_data.
+This means that plugin editor_atto did not complete the processing of data. The following exception information may be passed on to the plugin developer:
+
+ERROR: missing param ""param60"" in query
+
+#0 /var/www/html/lib/dml/mysqli_native_moodle_database.php(1178): moodle_database->fix_sql_params('SELECT *\n ...', Array)
+#1 /var/www/html/lib/editor/atto/classes/privacy/provider.php(138): mysqli_native_moodle_database->get_recordset_sql('SELECT *\n ...', Array)
+#2 /var/www/html/lib/moodlelib.php(7858): editor_atto\privacy\provider::export_user_data(Object(core_privacy\local\request\approved_contextlist))
+#3 /var/www/html/privacy/classes/manager.php(578): component_class_callback('editor_atto
+pri...', 'export_user_dat...', Array)
+#4 /var/www/html/privacy/classes/manager.php(611): core_privacy\manager::component_class_callback('editor_atto', 'core_privacy
+lo...', 'export_user_dat...', Array)
+#5 /var/www/html/privacy/classes/manager.php(339): core_privacy\manager->handled_component_class_callback('editor_atto', 'core_privacy
+lo...', 'export_user_dat...', Array)
+#6 /var/www/html/admin/tool/dataprivacy/classes/task/process_data_request_task.php(113): core_privacy\manager->export_user_data(Object(core_privacy\local\request\contextlist_collection))
+#7 /var/www/html/lib/cronlib.php(259): tool_dataprivacy\task\process_data_request_task->execute()
+#8 /var/www/html/lib/cronlib.php(147): cron_run_inner_adhoc_task(Object(tool_dataprivacy\task\process_data_request_task))
+#9 /var/www/html/lib/cronlib.php(68): cron_run_adhoc_tasks(1548845762)
+#10 /var/www/html/admin/cli/cron.php(61): cron_run()
+{code}
+
+This seems to be a regression of MDL-62601 as currently, the method {{\editor_atto\privacy\provider::export_user_data()}} in the lib/editor/atto/classes/privacy/provider.php is apparently wrong as it works with an undefined variable contextsql in the first query there.
+
+Easily to reproduce:
+{code}
+$ vendor/bin/phpunit lib/editor/atto/tests/privacy_provider.php
+{code}
+
+I was wondering why this has not been caught by our automatic unit test runs as it clearly fails. I realized the problem is with incorrectly named testsuite file. Only files ending with ""_test.php"" suffix are implicit part of a testsuite. So our PHPUnit infrastructure has always skipped this file (and one other I found) and it was never detected.",14,1/31/2019,2/1/2019,1,Bug,4,Blocker
+MDL-64782,performance improvement for get_users_in_context (take #2),"This is a followup of MDL-63785 where a good number of privacy queries were simplified to avoid joining with the contexts table when the contexts being searched are block, course or user. Simply because the instanceid of those contexts that we are fetching now is, already, the block, course or user id that we have in the different tables.
+
+This issue is about to look for remaining cases ([some were detected|https://tracker.moodle.org/browse/MDL-63785?focusedCommentId=656628&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-656628] in the original issue, there may be more) to follow the same simplification approach if the original one is accepted.
+
+Ciao :-)",17,2/5/2019,4/27/2019,81,Improvement,5,Minor
+MDL-65584,Error while calling core_blog\privacy\provider::delete_data_for_user.,"As noticed on the Learn Moodle site when some accounts were deleted by the privacy office - the following error message appeared:
+***********
+Exception occurred while calling core_blog\privacy\provider::delete_data_for_user.
+This means that plugin core_blog did not complete the processing of data. The following exception information may be passed on to the plugin developer:
+
+Coding error detected, it must be fixed by a programmer: moodle_database::get_in_or_equal() does not accept empty arrays
+
+
+#0 /opt/app/blog/classes/privacy/provider.php(463): moodle_database->get_in_or_equal(Array, 1, 'param', true)
+#1 /opt/app/lib/moodlelib.php(7880): core_blog\privacy\provider::delete_data_for_user(Object(core_privacy\local\request\approved_contextlist))
+#2 /opt/app/privacy/classes/manager.php(578): component_class_callback('core_blog\\priva...', 'delete_data_for...', Array)
+#3 /opt/app/privacy/classes/manager.php(611): core_privacy\manager::component_class_callback('core_blog', 'core_privacy\\lo...', 'delete_data_for...', Array)
+#4 /opt/app/privacy/classes/manager.php(415): core_privacy\manager->handled_component_class_callback('core_blog', 'core_privacy\\lo...', 'delete_data_for...', Array)
+#5 /opt/app/admin/tool/dataprivacy/classes/task/process_data_request_task.php(134): core_privacy\manager->delete_data_for_user(Object(core_privacy\local\request\contextlist_collection))
+#6 /opt/app/lib/cronlib.php(185): tool_dataprivacy\task\process_data_request_task->execute()
+#7 /opt/app/lib/cronlib.php(74): cron_run_inner_adhoc_task(Object(tool_dataprivacy\task\process_data_request_task))
+#8 /opt/app/admin/cli/cron.php(61): cron_run()
+#9 {main}
+*****",9,5/13/2019,10/16/2019,156,Bug,6,Major

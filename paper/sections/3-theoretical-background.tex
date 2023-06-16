@@ -1,0 +1,70 @@
+\section{\newtext{Theoretical Background}} \label{sec:theoretical-background}
+
+Many countries around the world have been developing data protection and privacy legislation to strengthen their personal data and privacy protection \cite{UNCTAD2020}. These legislations are designed to provide organisations with a comprehensive benchmark to govern their personal data collection and processing as well as protect and empower individuals about their privacy and rights. Having the legislations in place seems to benefit both organisations and individuals, however many organisations have faced several challenges to comply with these legislations \cite{Capgemini2019}. Those challenges raise the need to develop a taxonomy of requirements from data protection and privacy regulations to support the development and compliance of privacy-aware software systems.
+
+%Capgemini Research Institute \cite{Capgemini2019} has produced an insightful survey on how companies have been coping with data protection and privacy compliance. They surveyed 1,100 compliance, privacy, data protection and IT executives across ten countries and eights sectors. In-depth interviews with experts in data protection and privacy regulations and practices were also conducted. The results revealed that a major challenge the businesses are facing is the alignment of existing IT systems to data protection and privacy regulations. There are top three barriers for the businesses to comply with GDPR reported in the survey. Firstly, the businesses found that aligning the legacy systems to GDPR requirements is very complex. Secondly, the GDPR requirements are too complex, which require more effort for implementation. Finally, the costs of achieving alignment with GDPR are restricted. Those challenges raise the need to develop a taxonomy of requirements from data protection and privacy regulations to support the development and compliance of privacy-aware software systems.
+
+Our work is based on two well-established and widely-adopted regulations and privacy frameworks: GDPR and ISO/IEC 29100 and two region-specific representatives: Thailand PDPA and APEC privacy framework. GDPR is enacted to protect the individual rights of the data subjects on their personal data \cite{OfficeJournaloftheEuropeanUnion;2016}. It provides conditions, principles and definitions that need to be integrated into organisational processes and policies. These processes involve the collection, use, process, storage and dissemination of personal data of EU citizens and residents. The organisations failing to comply with the GDPR can be fined up to \EUR{20} million or 4\% of their previous year’s global turnover, whichever is greater. After a year of the enforcement, there are over 230 finalised cases with the total of \EUR{150} million fines so far. A great number of GDPR violation cases related to the processing of personal data and data breach have been reported \cite{EuropeanCommission2019}, \cite{PrivacyAffa}. This suggests the challenges in operationalising GDPR in developing software applications.
+
+ISO/IEC 29100:2011 is a privacy framework which guides the processing of personally identifiable information (PII) in Information and Communication Technology systems \cite{ISO/IEC2011}. The framework defines a set of privacy principles used to handle personal data processing activities (e.g. collection, storage, use, transfer and disposal). \emph{Similarly to GDPR, those principles are high-level, making it challenging for software engineers to design and implement privacy-aware systems}. We aim to address these challenges by translating these complex statements into implementable privacy requirements for software systems.
+
+Thailand Personal Data Protection Act (PDPA) was officially announced in May 2019 \cite{PDPA}. The regulation came into full effect in June 2022 after several extensions. Thailand PDPA is designed to govern personal data protection and create transparency and fairness for the use of personal data. It also promotes the use of personal data for innovation under assurance and provides effective remedy from data breaches. Any organisations that collect, use and disclose personal data of individuals residing in Thailand must comply with the regulation. We include this regulation in our study as it is a representative of newly developed and country-specific personal data protection regulation.
+
+%Thailand Personal Data Protection Act (PDPA) was officially announced in May 2019 \cite{PDPA}. The regulation will come into full effect in June 2022 after several extensions due to COVID-19 disruptions. Thailand PDPA is designed to govern personal data protection and create transparency and fairness for the use of personal data. It also promotes the use of personal data for innovation under assurance and provides effective remedy from data breaches. Any organisations in Thailand that collect, use and disclose personal data must comply with the regulation. In addition, any organisations that are located outside Thailand, but sell products, provide services and/or track individuals residing in Thailand, must also comply to this regulation. We include this regulation in our study as it is a representative of newly developed and country-specific personal data protection regulation.
+
+Asia-Pacific Economic Cooperation (APEC) privacy framework 2015 \cite{Apec2015} was published in August 2017 with the intention to establish effective privacy protections for cross-border information transfers across member countries of APEC \footnote{A list of APEC member countries can be found at https://www.apec.org/about-us/about-apec}. The APEC privacy provides guidance and direction to businesses and government entities in APEC economies on developing appropriate privacy protections of all personal information to ensure the free flow information in the Asia Pacific region. Unlike the GDPR, the framework does not displace domestic laws of the member countries. Also, it is not generally followed outside this region, except for outsider providing services to this region. Thus, it is included in this study as a representative of region-specific privacy protection framework.
+
+%This updated version was improved from the previous version published in 2005. The framework was developed based on the Organisation for Economic Co-operation and Development (OECD) guidelines.
+\newtext{We selected GDPR and ISO/IEC 29100 since they attracted a lot of attention from the public and also in the literature. In addition, the enactment of GDPR has greatly affected the way how organisations handle personal data in many sectors around the world. The data subjects also better aware of their individual rights in managing their personal data from GDPR. Both GDPR and ISO/IEC 29100 focus on data subjects and their personal data which can be applied to any sectors unlike, for example, California Consumer Privacy Act (CCPA) \cite{StateofCaliforniaDepartmentofJustice2018} which specifically covers consumers in businesses. Thailand PDPA and APEC privacy framework have been selected as representatives to validate the commonalities of privacy requirements across different regions.}
+
+\newtext{Prior to this work, we have conducted a thorough study on GDPR, ISO/IEC 29100, Thailand PDPA and APEC privacy framework and have found that they share many commonalities\footnote{See the file \emph{Privacy-requirements-abstraction} in the replication package for some examples \cite{reppkg-pridp}.}.} All of the regulations, standards and frameworks provide benchmarks for privacy and data protection governance and compliance in organisations. They are common in laying out the expectations that should be met when handling personal data. They also complement each other to cover a comprehensive set of privacy-related software requirements. We have done the mapping between the GDPR, ISO/IEC 29100, Thailand PDPA and APEC framework principles to demonstrate their similarities\footnote{See the file \emph{Mapping-across-regulations} in the replication package for more details \cite{reppkg-pridp}.}.  %In addition, both GDPR and ISO/IEC 29100 define common key actors and their roles in processing personal data. The basic principles between GDPR and ISO/IEC 29100 are similar, although they are grouped differently\footnote{See the file \emph{Mapping-across-regulations} in the replication package for an informal mapping between the GDPR, ISO/IEC 29100, Thailand PDPA and APEC framework principles \cite{reppkg-pridp}.} %(see Table \ref{tab:GDPR-ISO-mapping}). 
+%The requirements derived from ISO/IEC 29100 are similar or equivalent to those in GDPR. Although the terms and definitions in GDPR and ISO/IEC 29100 use different wordings, but they in fact refer to the same or similar things.
+
+\begin{comment}
+	\begin{table*}[]
+	\center
+	\caption{An informal mapping between the GDPR, ISO/IEC 29100, Thailand PDPA and APEC framework principles.}
+	\label{tab:GDPR-ISO-mapping}
+	\begin{tabular}{p{3cm} p{5cm} p{4.2cm} p{3.8cm}}
+		\toprule
+		\textbf{GDPR principles} &
+		\textbf{ISO/IEC 29100 principles} &
+		\textbf{Thailand PDPA parts} &
+		\textbf{APEC principles} \\ \midrule
+		Lawfulness, fairness and transparency &
+		\begin{tabular}[t]{@{}l@{}}Consent and choice\\ Purpose legitimacy and specification\\ Collection limitation\\ Use, retention and disclosure limitation\\ Openness, transparency and notice\\ Individual participation and access\end{tabular} &
+		\begin{tabular}[t]{@{}l@{}}General provisions\\ Personal data collection\\ Use or disclosure of personal data\\ Rights of the data subject\end{tabular} &
+		\begin{tabular}[t]{@{}l@{}}Preventing harms\\ Notice\\ Choice\\ Access and correction\\ Accountability\end{tabular} \\ \midrule
+		Purpose limitation &
+		\begin{tabular}[t]{@{}l@{}}Consent and choice\\ Purpose legitimacy and specification\\ Use, retention and disclosure limitation\\ Openness, transparency and notice\\ Accountability\end{tabular} &
+		\begin{tabular}[t]{@{}l@{}}General provisions\\ Personal data collection\\ Use or disclosure of personal data\end{tabular} &
+		\begin{tabular}[t]{@{}l@{}}Notice\\ Uses of personal information\\ Choice\end{tabular} \\ \midrule
+		Data minimisation &
+		\begin{tabular}[t]{@{}l@{}}Collection limitation\\ Data minimisation\\ Use, retention and disclosure limitation\end{tabular} &
+		\begin{tabular}[t]{@{}l@{}}General provisions\\ Personal data collection\\ Rights of the data subject\end{tabular} &
+		Collection limitation \\ \midrule
+		Accuracy &
+		\begin{tabular}[t]{@{}l@{}}Accuracy and quality\\ Individual participation and access\end{tabular} &
+		Rights of the data subject &
+		\begin{tabular}[t]{@{}l@{}}Collection limitation\\ Integrity of personal information\\ Access and correction\end{tabular} \\ \midrule
+		Storage limitation &
+		\begin{tabular}[t]{@{}l@{}}Data minimisation\\ Use, retention and disclosure limitation\\ Openness, transparency and notice\end{tabular} &
+		\begin{tabular}[t]{@{}l@{}}Personal data collection\\ Rights of the data subject\end{tabular} &
+		None \\ \midrule
+		Integrity and confidentiality &
+		Information security &
+		Rights of the data subject &
+		\begin{tabular}[t]{@{}l@{}}Preventing harms\\ Security safeguards\\ Accountability\end{tabular} \\ \midrule
+		Accountability &
+		\begin{tabular}[t]{@{}l@{}}Collection limitation\\ Accountability\\ Privacy compliance\end{tabular} &
+		\begin{tabular}[t]{@{}l@{}}Use or disclosure of personal data\\ Rights of the data subject\end{tabular} &
+		\begin{tabular}[t]{@{}l@{}}Preventing harms\\ Accountability\end{tabular}
+	\end{tabular}
+\end{table*}	
+\end{comment}
+
+%%The principles in both GDPR and ISO/IEC 29100 present a set of basic guidelines to govern personal data and privacy protection covered in the regulations and standard. We have found that there are commonalities and differences across these sources. For instance, the integrity and confidentiality in GDPR and information security principle in ISO/IEC 29100 address the common concerns on having appropriate measures put in place to protect personal data and its processing. The examples of the requirements related to these principles are \emph{R60 IMPLEMENT appropriate technical and organisational measures to protect personal data} and \emph{R63 PROTECT the personal data from unauthorised access and processing}.
+
+%%It is also interesting to note that requirements from a principle in ISO/IEC 29100 can be addressed in different principles in GDPR. For example, we have derived requirements \emph{R1 ALLOW the data subjects to access and review their personal data} and \emph{R50 INFORM the recipients of personal data any rectification or erasure of personal data or restriction of processing} from the individual participation and access principle in ISO/IEC 29100. Requirement R1 reflects the lawfulness, fairness and transparency principle in GDPR while requirement R50 relates to the accuracy principle in the GDPR. 
+
+%This section presents a taxonomy of privacy requirements that we have developed based on the GDPR, ISO/IEC 29100, Thailand PDPA and APEC privacy framework. We first discuss the methodology that we have followed to develop this taxonomy, and then describe the privacy requirements set out in the taxonomy.

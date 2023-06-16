@@ -1,0 +1,84 @@
+%\textbf{RQ2: Were privacy and non-privacy issues treated differently?} \\
+
+\subsection{The treatment of privacy and non-privacy issues}
+
+We investigate if privacy issues were treated differently from non-privacy issues in Chrome and Moodle. We focus on observing two kinds of treatments: the time it took to resolve an issue and the number of comments associated with the issue. The former reflects how fast an issue was resolved while the latter indicates the attention and engagement of the project team to the issue. We randomly sampled the dataset we built earlier using a 95\% confidence level with a confidence interval of 5\footnote{https://www.surveysystem.com/sscalc.htm} to obtain 269 privacy issues from Chrome and 213 from Moodle. Applying the same sampling scheme, we randomly selected 382 non-privacy issues from Chrome and 380 from Moodle - these issues were not tagged as privacy in the ``component'' field. Note that the resolution time is calculated from the number of days between reported date and the date when the issue was flagged as being resolved.
+
+\begin{table}
+	\centering
+	\caption{Results of the Wilcoxon rank-sum test: non-privacy vs. privacy issues}
+	\label{tab:ranksum}
+	\resizebox{8.5cm}{!}{
+		\begin{tabular}{l l l l l}
+			\toprule
+			\textbf{Project} & \textbf{Attribute} & \textbf{One-sided tail} & \textbf{p-value} & \textbf{Effect size}\\
+			\midrule
+			Google Chrome & Resolution time & Less & $<$0.001 & 0.578 \\
+			Google Chrome & \#Comments & Less & $<$0.001 & 0.691 \\
+			Moodle & Resolution time & Greater & $<$0.001 & 0.609 \\
+			Moodle & \#Comments & Greater & $<$0.001 & 0.604\\
+			\bottomrule
+		\end{tabular}%
+	}	
+\end{table}
+
+We employ the Wilcoxon rank-sum test (also known as Mann-Whitney U test), a non-parametric hypothesis test which compares the difference between two independent observations \cite{Wild1997}. We performed two tests between privacy and non-privacy samples, one for the resolution time and the other for the number of comments. The results (see Table \ref{tab:ranksum}) show that the resolution time and the number of comments are statistically significantly (\textit{p-value $\leq$ 0.001}) different between privacy and non-privacy issues in both Chrome and Moodle with effect size greater than 0.5 in all cases.
+
+We also compare the median rank of the two samples using one-tailed test. Our results show that privacy issues were resolved more quickly and attracted less comments than non-privacy issues in Moodle (see Table \ref{tab:ranksum}). On the other hand, it took longer to resolve privacy issues than non-privacy issues in Chrome. Also, privacy issues in Chrome tend to attract more discussion than non-privacy issues. 
+
+%We observed that the contributors in Chrome were confident and had more experience in resolving non-privacy issues. Hence, these issues attracted less discussion and was resolved more quickly. By contrast, privacy issues in Chrome attracted more discussions since the contributors were uncertain about the issues and their affected components in the system. We observed five examples that the contributors commented in those privacy issues as follows: (i) the contributors did not know what the affected components reported in the issues do (e.g. issue 345741); (ii) the contributors could not identify the causes of issues; (iii) the contributors required time and effort to come up with potential solutions; (iv) the contributors needed to assess the difficulties of the issues and their resolutions; and (v) the contributors did not know whom to assign the work. These reasons also led to longer time to resolve the privacy issues in Chrome. In addition, the Chrome project does not have a well-defined process that specifically handles privacy. Hence, the contributors need to ensure that fixing privacy issues will not create another problem in different components. Thus, resolving privacy issues attracted a lot of discussions, leading to longer resolution time.
+
+\newtext{We observed the following patterns when we went through the comments in non-privacy issue reports in Chrome: (i) the issue reports were assigned to relevant contributors and got resolved without any discussion (e.g. Issue 142322\footnote{https://bugs.chromium.org/p/chromium/issues/detail?id=142322)}, (ii) the contributors asked if fixing those issue reports did not affect other parts without discussing on how to fix the issues (e.g. Issue 914196\footnote{https://bugs.chromium.org/p/chromium/issues/detail?id=914196}) and (iii) the contributors discussed on workarounds meaning that they knew how to fix the issues but direct method could not be used (e.g. Issue 1082077\footnote{https://bugs.chromium.org/p/chromium/issues/detail?id=1082077}). These patterns show that the contributors had less discussion with regard to identifying root causes or solutions of the issues. Based on these findings, the contributors in Chrome tended to be confident and had more experience in resolving non-privacy issues.} 
+
+By contrast, privacy issues in Chrome attracted more discussions since the contributors were uncertain about the issues and their affected components in the system. We observed five examples that the contributors commented in those privacy issues as follows: (i) the contributors did not know what the affected components reported in the issues do (e.g. issue 345741); (ii) the contributors could not identify the causes of issues; (iii) the contributors required time and effort to come up with potential solutions; (iv) the contributors needed to assess the difficulties of the issues and their resolutions; and (v) the contributors did not know whom to assign the work. These reasons also led to longer time to resolve the privacy issues in Chrome. In addition, the Chrome project does not have a well-defined process that specifically handles privacy. Hence, the contributors need to ensure that fixing privacy issues will not create another problem in different components. Thus, resolving privacy issues attracted a lot of discussions, leading to longer resolution time.
+
+On the other hand, privacy issues in Moodle were resolved more quickly and attracted less comments than non-privacy issues. We observe that the privacy issues were well reported and clearly explained in Moodle. Moodle contributors were familiar with privacy-related functionalities and relevant system components. In addition, Moodle has a clearly defined infrastructure to handle privacy and privacy compliance in the system (e.g. privacy API \cite{Moodle2019} and GDPR for plugin developers \cite{Nicols2018}). This infrastructure includes a number of components that support privacy-related functionalities and several key individual rights in GDPR (e.g. accessing to personal data and requesting for deletion). When there is a privacy-related bug or new feature request, the contributors can consult the privacy API documentation and identify the components that they must fix or implement. Hence, the privacy issues took less time and attracted less comments in Moodle.
+
+%Moodle has a clear infrastructure of privacy compliance (e.g. privacy API \cite{Moodle2019}). Hence, we observe that Moodle developers did not need much discussion before resolving privacy issues, resulting in shorter resolution time. We observe that privacy issues in Chrome tend to affect many different components in the system. Thus, resolving those issues attracted a lot of discussions, leading to longer resolution time.
+
+%In contrast, privacy issue reports use less time to fix in Moodle. Moodle's non-privacy issue reports have more interactions than privacy-related issues. Since Moodle has clearly defined its infrastructure of privacy compliance (e.g. privacy API \cite{Moodle2019}), the developers do not need to discuss a lot before resolving issues. This also reflects the duration they use to resolve issue reports.
+
+%Based on the results, they show some different aspects of how privacy and non-privacy are treated in different open-source software projects by the fix time and number of comments.
+
+%To answer this question, we initially investigated two issue report attributes (fix time and number of comments) between privacy and non-privacy issues of Google Chrome and Moodle. We set our scope to not observe correlations between other attributes as most bug report attributes are not correlated with bug-fix time \cite{Bhattacharya2011}. Fix time (also represents development time for feature requests issue type) reflects how quickly the developers intend to fix privacy and non-privacy issue reports. The number of comments possibly indicates the attention and engagement of relevant stakeholders to discuss on issue reports.
+
+%We randomly sampled issue reports (with their status as fixed) using a 95\% confidence level with a confidence interval of 5\footnote{https://www.surveysystem.com/sscalc.htm}. There were 269 and 213 issue reports sampled from Google Chrome and Moodle datasets used in the issue reports classification step. Applying the same scheme, we randomly selected 382 and 213 issue reports from Google Chrome and Moodle non-privacy issue populations (i.e. they are not tagged as privacy in the ``component'' field). The fix time is calculated from the difference between reported date and fixed date. In this study we use \textit{the number of days} as a unit. The number of comments is straightforward.
+
+%Firstly, we employ the Wilcoxon rank-sum test (also known as Mann-Whitney U test), a non-parametric hypothesis test which compare the difference between two independent observations \cite{Wild1997}. We performed two tests between privacy and non-privacy samples of both datasets based on each attribute. This step tests whether there is a statistically significant difference between two groups of issue reports for each attribute. The results show that fix time and number of comments are statistically significant (\textit{p-value $\leq$ 0.005}) between privacy and non-privacy issue reports for both projects.
+
+%We then performed further analysis on each attribute for each project to compare the median rank of these two samples using one-tailed test. Our results show that all the attributes provide statistical significance between privacy and non-privacy issue reports for both datasets (see Figure \ref{tab:ranksum}). We also report the effect size of the results \cite{McGraw1992}. In Google Chrome, non-privacy issue reports are likely to use less fix time comparing to privacy-related issue reports. The number of comments in non-privacy issue reports are smaller than privacy-related issues. From the observation, privacy issues in Google Chrome tend to affect different components in its system. However, with a number of developers are contributed to the Google Chrome project, it possibly affects the fix time.
+
+%In contrast, privacy issue reports use less time to fix in Moodle. Moodle's non-privacy issue reports have more interactions than privacy-related issues. Since Moodle has clearly defined its infrastructure of privacy compliance (e.g. privacy API \cite{Moodle2019}), the developers do not need to discuss a lot before resolving issues. This also reflects the duration they use to resolve issue reports.
+
+%Based on the results, they show some different aspects of how privacy and non-privacy are treated in different open-source software projects by the fix time and number of comments.
+
+%\todo{check what should be the appropriate digits used to report results}
+
+
+\begin{comment}
+
+Note:
+p-value for fix time = 0.000058, comment = 0.0001
+I think the interpretation from here is that if we set the null hypothesis (H0) as 'the fixing time of privacy and non-privacy issues are similar'. And H1 as 'the fixing time of privacy and non-privacy issues are different'. Then, the result from p-value (which is <0.05) rejects H0. Hence, the fixing time between these two groups are statistically significant difference, agree?
+
+There are two values of tail: greater and less.
+Now, my parameters fed into the function is non-privacy (as x) and privacy (as y) values. Greater means the median of x is higher than y. On the other hand, less means the median of x is less than y. The p-value of this test is also reported. All of our tests are statistically significant based on the p-value reported in each test.
+
+The result of pq ranksums test - moodle - fixing time - one-sided:
+U-val     tail     p-val      RBC      CLES
+MWU  27793.5  greater  0.000029 -0.22522  0.604157
+
+The result of pq ranksums test - chrome - fixing time - one-sided:
+U-val  tail     p-val       RBC      CLES
+MWU  42663.0  less  0.000112  0.169641  0.578077
+
+The result of pq ranksums test - moodle - comments - one-sided:
+U-val     tail    p-val      RBC      CLES
+MWU  27624.5  greater  0.00005 -0.21777  0.591086
+
+The result of pq ranksums test - chrome - comments - one-sided:
+U-val  tail         p-val       RBC      CLES
+MWU  29894.0  less  4.294377e-20  0.418167  0.690915
+\end{comment}
+
+
